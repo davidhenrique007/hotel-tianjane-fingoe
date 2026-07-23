@@ -1,7 +1,6 @@
 import Hero from '../sections/Hero/Hero';
 import About from '../sections/About/About';
 import Rooms from '../sections/Rooms/Rooms';
-import Services from '../sections/Services/Services';
 import Benefits from '../sections/Benefits/Benefits';
 import Gallery from '../sections/Gallery/Gallery';
 import Location from '../sections/Location/Location';
@@ -16,7 +15,6 @@ export default function Home() {
       <Hero />
       <About />
       <Rooms />
-      <Services />
       <Benefits />
       <Gallery />
       <Location />

@@ -44,7 +44,7 @@ export default {
         card: '0 12px 32px -12px rgba(33, 29, 23, 0.18)',
       },
       maxWidth: {
-        content: '1240px',
+        content: '1024px',
       },
       animation: {
         'fade-up': 'fadeUp 0.8s ease forwards',

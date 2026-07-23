@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { HeartHandshake, MapPinned, ShieldCheck, Users } from 'lucide-react';
 import SectionHeading from '../../components/SectionHeading/SectionHeading';
 import ImagePlaceholder from '../../components/ImagePlaceholder/ImagePlaceholder';
+import hotelInterior from '../../assets/images/about/hotel-interior.jpeg';
 
 const pillars = [
   {
@@ -36,7 +37,12 @@ export default function About() {
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.7 }}
         >
-          <ImagePlaceholder label="Receção do Hotel Tianjane Fingoe" aspect="landscape" />
+          <ImagePlaceholder 
+            src={hotelInterior}
+            alt="Receção e interior do Hotel Tianjane Fingoe"
+            aspect="landscape"
+            className="w-full"
+          />
         </motion.div>
 
         <div className="flex flex-col gap-8">
