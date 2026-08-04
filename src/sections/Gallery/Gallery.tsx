@@ -1,3 +1,5 @@
+﻿"use client";
+
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Plus } from 'lucide-react';
@@ -8,7 +10,7 @@ import { useMediaQuery } from '../../hooks/useMediaQuery';
 import { cn } from '../../utils/cn';
 // IMPORTAR AS IMAGENS
 import fachadaPrincipal from '../../assets/images/hero/fachada-principal.jpeg';
-import rececao from '../../assets/images/gallery/rececao.jpg'; // ← .jpg (não .jpeg)
+import rececao from '../../assets/images/gallery/rececao.jpg'; // â† .jpg (nÃ£o .jpeg)
 
 export default function Gallery() {
   const isDesktop = useMediaQuery('(min-width: 768px)');
@@ -18,8 +20,8 @@ export default function Gallery() {
 
   // MAPEAMENTO DAS IMAGENS REAIS
   const imageMap: Record<string, string> = {
-    'g1': fachadaPrincipal,  // Fachada
-    'g5': rececao,           // Receção
+    'g1': fachadaPrincipal.src,  // Fachada
+    'g5': rececao.src,           // ReceÃ§Ã£o
   };
 
   return (
@@ -28,7 +30,7 @@ export default function Gallery() {
         <SectionHeading
           eyebrow="Galeria"
           title="Um vislumbre da sua estadia"
-          description="Quartos, áreas comuns e a paisagem à volta de Fingoe — fotografias reais serão adicionadas nesta secção assim que disponíveis (ver README)."
+          description="Quartos, áreas comuns e a paisagem à volta de Fingoe"
         />
 
         <div className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-5">
@@ -69,3 +71,4 @@ export default function Gallery() {
     </section>
   );
 }
+

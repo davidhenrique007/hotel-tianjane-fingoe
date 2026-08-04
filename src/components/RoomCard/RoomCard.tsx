@@ -1,3 +1,5 @@
+"use client";
+
 import { motion } from 'framer-motion';
 import { Check, Users } from 'lucide-react';
 import type { Room } from '../../types';

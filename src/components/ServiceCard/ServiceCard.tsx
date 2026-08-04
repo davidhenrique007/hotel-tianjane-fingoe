@@ -1,3 +1,5 @@
+"use client";
+
 import { motion } from 'framer-motion';
 import {
   Wifi,
@@ -47,3 +49,4 @@ export default function ServiceCard({ service, index }: ServiceCardProps) {
     </motion.div>
   );
 }
+

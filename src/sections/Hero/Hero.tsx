@@ -1,3 +1,5 @@
+﻿"use client";
+
 // src/sections/Hero/Hero.tsx
 import { motion } from 'framer-motion';
 import { ArrowRight, MapPin } from 'lucide-react';
@@ -8,8 +10,8 @@ import Button from '../../components/Button/Button';
 export default function Hero() {
   return (
     <section id="inicio" className="relative overflow-hidden min-h-screen flex items-center">
-      
-      {/* VÍDEO DE FUNDO */}
+
+      {/* VÃDEO DE FUNDO */}
       <div className="absolute inset-0 w-full h-full z-0">
         <video
           autoPlay
@@ -17,24 +19,23 @@ export default function Hero() {
           loop
           playsInline
           className="w-full h-full object-cover"
-          poster="/videos/hotel-hero-poster.jpg" // Opcional: imagem de fallback
         >
           <source src="/videos/hotel-hero.mp4" type="video/mp4" />
-          {/* Fallback para navegadores que não suportam vídeo */}
+          {/* Fallback para navegadores que nÃ£o suportam vÃ­deo */}
           <div className="absolute inset-0 bg-forest-dark" />
         </video>
-        
+
         {/* OVERLAY ESCURO PARA LEGIBILIDADE DO TEXTO */}
         <div className="absolute inset-0 bg-gradient-to-b from-charcoal/50 via-charcoal/15 to-charcoal/45 lg:bg-gradient-to-r lg:from-charcoal/75 lg:via-charcoal/25 lg:to-transparent z-10" />
-        
-        {/* TEXTURA DE GRÃO SUTIL */}
+
+        {/* TEXTURA DE GRÃƒO SUTIL */}
         <div className="pointer-events-none absolute inset-0 bg-grain opacity-40 z-10" />
       </div>
 
-      {/* CONTEÚDO SOBREPOSTO */}
+      {/* CONTEÃšDO SOBREPOSTO */}
       <div className="container-page relative z-20 py-20 md:py-28">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 xl:gap-16 items-center">
-          
+
           <motion.div
             initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
@@ -47,13 +48,12 @@ export default function Hero() {
             </span>
 
             <h1 className="text-4xl leading-[1.08] text-cream sm:text-5xl md:text-[3.4rem]">
-              Uma estadia confortável
+              Uma estadia confortável no coração de Fingoe
               <br className="hidden sm:block" /> no coração de <span className="text-gold italic">Fingoe</span>
             </h1>
 
             <p className="max-w-md text-base leading-relaxed text-cream/80 md:text-lg">
-              Quartos cuidados, atendimento próximo e um ambiente tranquilo para descansar, trabalhar
-              ou receber a sua família — no ponto certo de Marávia, Tete.
+              Quartos cuidados, atendimento próximo e um ambiente tranquilo para descansar, trabalhar ou receber a sua família — no ponto certo de Marávia, Tete.
             </p>
 
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
@@ -80,9 +80,9 @@ export default function Hero() {
             </dl>
           </motion.div>
 
-          {/* LADO DIREITO VAZIO — O VÍDEO OCUPA TODO O FUNDO */}
+          {/* LADO DIREITO VAZIO â€” O VÃDEO OCUPA TODO O FUNDO */}
           <div className="hidden lg:block" />
-          
+
         </div>
       </div>
 
@@ -90,3 +90,5 @@ export default function Hero() {
     </section>
   );
 }
+
+

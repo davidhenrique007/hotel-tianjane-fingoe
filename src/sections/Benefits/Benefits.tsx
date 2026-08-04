@@ -1,3 +1,5 @@
+"use client";
+
 import { motion } from 'framer-motion';
 import { BedDouble, Clock3, HandHeart, ShieldCheck, Smile } from 'lucide-react';
 import SectionHeading from '../../components/SectionHeading/SectionHeading';
