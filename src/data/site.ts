@@ -18,6 +18,15 @@
   ],
 };
 
+export const navLinks = [
+  { label: "Início", href: "/" },
+  { label: "Quartos", href: "#rooms" },
+  { label: "Serviços", href: "#services" },
+  { label: "Galeria", href: "#gallery" },
+  { label: "Localização", href: "#location" },
+  { label: "Contacto", href: "#contact" },
+];
+
 export function whatsappLink(message: string): string {
   const number = siteConfig.whatsappNumber.replace(/[^0-9]/g, "");
   return `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
