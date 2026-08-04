@@ -16,6 +16,8 @@ export const rooms: Room[] = [
     capacity: '1–2 hóspedes',
     priceHint: 'Sob consulta',
     imageLabel: 'Quarto Standard — cama de casal junto à janela',
+    minGuests: 1,  // ✅ NOVO
+    maxGuests: 2,  // ✅ NOVO
   },
   {
     id: 'deluxe',
@@ -32,6 +34,8 @@ export const rooms: Room[] = [
     capacity: '2–3 hóspedes',
     priceHint: 'Sob consulta',
     imageLabel: 'Quarto Deluxe — zona de estar com luz natural',
+    minGuests: 2,  // ✅ NOVO
+    maxGuests: 3,  // ✅ NOVO
   },
   {
     id: 'suite-premium',
@@ -48,5 +52,7 @@ export const rooms: Room[] = [
     capacity: '2–4 hóspedes',
     priceHint: 'Sob consulta',
     imageLabel: 'Suíte Premium — sala privativa e quarto amplo',
+    minGuests: 2,  // ✅ NOVO
+    maxGuests: 4,  // ✅ NOVO
   },
 ];

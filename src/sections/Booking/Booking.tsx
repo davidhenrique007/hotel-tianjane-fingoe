@@ -1,35 +1,46 @@
 "use client";
 
-import { useState, type FormEvent } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { motion } from 'framer-motion';
-import { CalendarDays, MessageCircle, Users } from 'lucide-react';
+import { CalendarDays, MessageCircle, Users, User, Phone } from 'lucide-react';
 import { rooms } from '../../data/rooms';
 import { whatsappLink } from '../../data/site';
 import { RiverLineMark } from '../../components/Motif/RiverLine';
+import { bookingSchema, type BookingFormData } from '../../schemas/bookingSchema';
 
-/**
- * Interface inicial de reserva. Não processa pagamentos nem verifica
- * disponibilidade em tempo real — reúne a intenção de reserva do hóspede
- * num formato claro e envia-a diretamente para o WhatsApp do hotel, para
- * confirmação humana. Uma base pronta para evoluir para um sistema de
- * reservas completo (ver README).
- */
 export default function Booking() {
-  const [roomId, setRoomId] = useState(rooms[0].id);
-  const [checkIn, setCheckIn] = useState('');
-  const [checkOut, setCheckOut] = useState('');
-  const [guests, setGuests] = useState(2);
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors, isSubmitting },
+  } = useForm<BookingFormData>({
+    resolver: zodResolver(bookingSchema),
+    defaultValues: {
+      roomId: rooms[0].id,
+      guests: 2,
+      name: '',
+      phone: '',
+      observations: '',
+    },
+  });
 
-  const handleSubmit = (event: FormEvent) => {
-    event.preventDefault();
-    const room = rooms.find((r) => r.id === roomId);
+  const selectedRoomId = watch('roomId');
+  const selectedRoom = rooms.find((r) => r.id === selectedRoomId);
+
+  const onSubmit = (data: BookingFormData) => {
+    const room = rooms.find((r) => r.id === data.roomId);
 
     const lines = [
       'Olá! Gostaria de reservar no Hotel Tianjane Fingoe.',
       room ? `Quarto: ${room.name}` : '',
-      checkIn ? `Check-in: ${checkIn}` : '',
-      checkOut ? `Check-out: ${checkOut}` : '',
-      `Número de hóspedes: ${guests}`,
+      data.checkIn ? `Check-in: ${data.checkIn}` : '',
+      data.checkOut ? `Check-out: ${data.checkOut}` : '',
+      `Número de hóspedes: ${data.guests}`,
+      `Nome: ${data.name}`,
+      `Telefone: ${data.phone}`,
+      data.observations ? `Observações: ${data.observations}` : '',
     ].filter(Boolean);
 
     window.open(whatsappLink(lines.join('\n')), '_blank', 'noopener,noreferrer');
@@ -72,55 +83,64 @@ export default function Booking() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.7, delay: 0.1 }}
-          onSubmit={handleSubmit}
-          className="flex flex-col gap-5 rounded-2xl bg-cream p-7 shadow-soft md:p-9"
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex flex-col gap-4 rounded-2xl bg-cream p-7 shadow-soft md:p-9"
         >
-          <div className="flex flex-col gap-2">
-            <label htmlFor="room" className="text-sm font-semibold text-forest">
+          {/* Quarto */}
+          <div className="flex flex-col gap-1">
+            <label htmlFor="roomId" className="text-sm font-semibold text-forest">
               Quarto pretendido
             </label>
             <select
-              id="room"
-              value={roomId}
-              onChange={(e) => setRoomId(e.target.value)}
+              id="roomId"
+              {...register('roomId')}
               className="rounded-xl border border-charcoal/15 bg-white px-4 py-3 text-sm text-charcoal focus:border-gold focus:outline-none"
             >
               {rooms.map((room) => (
                 <option key={room.id} value={room.id}>
-                  {room.name}
+                  {room.name} ({room.capacity})
                 </option>
               ))}
             </select>
+            {errors.roomId && (
+              <p className="text-xs text-red-600">{errors.roomId.message}</p>
+            )}
           </div>
 
+          {/* Datas */}
           <div className="grid grid-cols-2 gap-4">
-            <div className="flex flex-col gap-2">
-              <label htmlFor="checkin" className="flex items-center gap-1.5 text-sm font-semibold text-forest">
+            <div className="flex flex-col gap-1">
+              <label htmlFor="checkIn" className="flex items-center gap-1.5 text-sm font-semibold text-forest">
                 <CalendarDays size={15} /> Entrada
               </label>
               <input
-                id="checkin"
+                id="checkIn"
                 type="date"
-                value={checkIn}
-                onChange={(e) => setCheckIn(e.target.value)}
+                {...register('checkIn')}
                 className="rounded-xl border border-charcoal/15 bg-white px-3 py-3 text-sm text-charcoal focus:border-gold focus:outline-none"
               />
+              {errors.checkIn && (
+                <p className="text-xs text-red-600">{errors.checkIn.message}</p>
+              )}
             </div>
-            <div className="flex flex-col gap-2">
-              <label htmlFor="checkout" className="flex items-center gap-1.5 text-sm font-semibold text-forest">
+            <div className="flex flex-col gap-1">
+              <label htmlFor="checkOut" className="flex items-center gap-1.5 text-sm font-semibold text-forest">
                 <CalendarDays size={15} /> Saída
               </label>
               <input
-                id="checkout"
+                id="checkOut"
                 type="date"
-                value={checkOut}
-                onChange={(e) => setCheckOut(e.target.value)}
+                {...register('checkOut')}
                 className="rounded-xl border border-charcoal/15 bg-white px-3 py-3 text-sm text-charcoal focus:border-gold focus:outline-none"
               />
+              {errors.checkOut && (
+                <p className="text-xs text-red-600">{errors.checkOut.message}</p>
+              )}
             </div>
           </div>
 
-          <div className="flex flex-col gap-2">
+          {/* Hóspedes */}
+          <div className="flex flex-col gap-1">
             <label htmlFor="guests" className="flex items-center gap-1.5 text-sm font-semibold text-forest">
               <Users size={15} /> Número de hóspedes
             </label>
@@ -129,15 +149,77 @@ export default function Booking() {
               type="number"
               min={1}
               max={8}
-              value={guests}
-              onChange={(e) => setGuests(Number(e.target.value))}
+              {...register('guests', { valueAsNumber: true })}
               className="rounded-xl border border-charcoal/15 bg-white px-4 py-3 text-sm text-charcoal focus:border-gold focus:outline-none"
             />
+            {selectedRoom && (
+              <p className="text-xs text-forest/60">
+                Capacidade: {selectedRoom.capacity}
+              </p>
+            )}
+            {errors.guests && (
+              <p className="text-xs text-red-600">{errors.guests.message}</p>
+            )}
           </div>
 
-          <button type="submit" className="btn-primary mt-2 w-full">
+          {/* Nome */}
+          <div className="flex flex-col gap-1">
+            <label htmlFor="name" className="flex items-center gap-1.5 text-sm font-semibold text-forest">
+              <User size={15} /> Nome completo
+            </label>
+            <input
+              id="name"
+              type="text"
+              placeholder="Ex: João Silva"
+              {...register('name')}
+              className="rounded-xl border border-charcoal/15 bg-white px-4 py-3 text-sm text-charcoal focus:border-gold focus:outline-none"
+            />
+            {errors.name && (
+              <p className="text-xs text-red-600">{errors.name.message}</p>
+            )}
+          </div>
+
+          {/* Telefone */}
+          <div className="flex flex-col gap-1">
+            <label htmlFor="phone" className="flex items-center gap-1.5 text-sm font-semibold text-forest">
+              <Phone size={15} /> Telefone
+            </label>
+            <input
+              id="phone"
+              type="tel"
+              placeholder="Ex: 84 123 4567"
+              {...register('phone')}
+              className="rounded-xl border border-charcoal/15 bg-white px-4 py-3 text-sm text-charcoal focus:border-gold focus:outline-none"
+            />
+            {errors.phone && (
+              <p className="text-xs text-red-600">{errors.phone.message}</p>
+            )}
+          </div>
+
+          {/* Observações */}
+          <div className="flex flex-col gap-1">
+            <label htmlFor="observations" className="text-sm font-semibold text-forest">
+              Observações (opcional)
+            </label>
+            <textarea
+              id="observations"
+              rows={2}
+              placeholder="Ex: Preciso de check-in tardio, alergia a travesseiros de pena..."
+              {...register('observations')}
+              className="rounded-xl border border-charcoal/15 bg-white px-4 py-3 text-sm text-charcoal focus:border-gold focus:outline-none resize-none"
+            />
+            {errors.observations && (
+              <p className="text-xs text-red-600">{errors.observations.message}</p>
+            )}
+          </div>
+
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="btn-primary mt-2 w-full disabled:opacity-60"
+          >
             <MessageCircle size={17} />
-            Reservar agora pelo WhatsApp
+            {isSubmitting ? 'A enviar...' : 'Reservar agora pelo WhatsApp'}
           </button>
         </motion.form>
       </div>

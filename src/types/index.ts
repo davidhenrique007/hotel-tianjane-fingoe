@@ -7,6 +7,8 @@ export interface Room {
   capacity: string;
   priceHint: string;
   imageLabel: string;
+  minGuests: number;  // ✅ NOVO
+  maxGuests: number;  // ✅ NOVO
 }
 
 export interface Service {

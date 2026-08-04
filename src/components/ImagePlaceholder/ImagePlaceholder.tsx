@@ -1,13 +1,14 @@
 import { ImageIcon } from 'lucide-react';
+import Image from 'next/image';
 import { cn } from '../../utils/cn';
 
 interface ImagePlaceholderProps {
   label?: string;
   aspect?: 'square' | 'portrait' | 'landscape' | 'wide';
   className?: string;
-  src?: string;        // NOVO: imagem real
-  alt?: string;        // NOVO: texto alternativo
-  children?: React.ReactNode; // NOVO: para overlay como no Hero
+  src?: string;        // Imagem real
+  alt?: string;        // Texto alternativo
+  children?: React.ReactNode; // Overlay como no Hero
 }
 
 const aspectClass: Record<NonNullable<ImagePlaceholderProps['aspect']>, string> = {
@@ -18,20 +19,18 @@ const aspectClass: Record<NonNullable<ImagePlaceholderProps['aspect']>, string> 
 };
 
 /**
- * Substitua este componente por um <img> real assim que houver fotografia
- * profissional disponível — ver README, secção "Como adicionar fotografias".
- * Mantém a proporção correta para não quebrar o layout quando as fotos
- * reais forem inseridas.
+ * Componente que exibe uma imagem real (se src for fornecida) ou um placeholder
+ * elegante (se não houver imagem). Utiliza next/image para otimização automática.
  */
-export default function ImagePlaceholder({ 
-  label, 
-  aspect = 'landscape', 
+export default function ImagePlaceholder({
+  label,
+  aspect = 'landscape',
   className = '',
   src,
   alt = 'Hotel Tianjane Fingoe',
   children,
 }: ImagePlaceholderProps) {
-  // Se tiver src, mostra imagem real
+  // Se tiver src, mostra imagem real com next/image
   if (src) {
     return (
       <div
@@ -41,10 +40,12 @@ export default function ImagePlaceholder({
           className
         )}
       >
-        <img
+        <Image
           src={src}
           alt={alt}
-          className="w-full h-full object-cover"
+          fill
+          className="object-cover"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
         {/* Overlay para manter o estilo do placeholder quando necessário */}
         {children}
