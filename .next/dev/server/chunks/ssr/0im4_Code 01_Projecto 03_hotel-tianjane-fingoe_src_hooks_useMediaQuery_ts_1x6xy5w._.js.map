@@ -1,6 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/dell/Desktop/Code%2001/Projecto%2003/hotel-tianjane-fingoe/src/hooks/useMediaQuery.ts"],"sourcesContent":["\"use client\";\nimport { useEffect, useState } from 'react';\n\n/**\n * Hook simples de media query, sem dependências externas.\n * Ex.: const isDesktop = useMediaQuery('(min-width: 1024px)');\n */\nexport function useMediaQuery(query: string): boolean {\n  const [matches, setMatches] = useState(false);\n\n  useEffect(() => {\n    const mediaQueryList = window.matchMedia(query);\n    const listener = () => setMatches(mediaQueryList.matches);\n    listener();\n    mediaQueryList.addEventListener('change', listener);\n    return () => mediaQueryList.removeEventListener('change', listener);\n  }, [query]);\n\n  return matches;\n}\r\n"],"names":["useMediaQuery","query","matches","setMatches","mediaQueryList","window","matchMedia","listener","addEventListener","removeEventListener"],"mappings":";;;;AACA;AADA;;AAOO,SAASA,cAAcC,KAAa;IACzC,MAAM,CAACC,SAASC,WAAW,GAAG,IAAA,uRAAQ,EAAC;IAEvC,IAAA,wRAAS,EAAC;QACR,MAAMC,iBAAiBC,OAAOC,UAAU,CAACL;QACzC,MAAMM,WAAW,IAAMJ,WAAWC,eAAeF,OAAO;QACxDK;QACAH,eAAeI,gBAAgB,CAAC,UAAUD;QAC1C,OAAO,IAAMH,eAAeK,mBAAmB,CAAC,UAAUF;IAC5D,GAAG;QAACN;KAAM;IAEV,OAAOC;AACT"}}]
-}
