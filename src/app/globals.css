@@ -1,0 +1,96 @@
+@import "tailwindcss";
+
+@theme {
+  --color-forest: #2F6F5E;
+  --color-forest-dark: #1F4D41;
+  --color-forest-light: #6CA695;
+
+  --color-gold: #C9A227;
+  --color-gold-light: #E4C765;
+  --color-gold-dark: #A6821E;
+
+  --color-cream: #F8F3E8;
+  --color-cream-soft: #FFFDF8;
+
+  --color-clay: #B08D6E;
+  --color-clay-dark: #8B6F54;
+
+  --color-charcoal: #1C2A27;
+
+  --font-display: "Fraunces", serif;
+  --font-body: "Work Sans", sans-serif;
+
+  --tracking-widest2: 0.28em;
+
+  --background-image-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+
+  --shadow-soft: 0 20px 60px -20px rgba(28, 42, 39, 0.35);
+  --shadow-card: 0 12px 32px -12px rgba(28, 42, 39, 0.18);
+
+  --container-content: 1240px;
+
+  --animate-fade-up: fadeUp 0.8s ease forwards;
+}
+
+@keyframes fadeUp {
+  0% { opacity: 0; transform: translateY(24px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@utility btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold tracking-wide transition-all duration-300 ease-out;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-cream text-charcoal font-body antialiased;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display text-forest;
+  }
+
+  ::selection {
+    @apply bg-gold/30 text-forest-dark;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-gold-dark);
+    outline-offset: 3px;
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply max-w-content mx-auto px-6 md:px-10;
+  }
+
+  .eyebrow {
+    @apply font-body text-xs tracking-widest2 uppercase text-clay font-semibold;
+  }
+
+  .btn-primary {
+    @apply btn bg-gold text-forest-dark hover:bg-gold-light hover:-translate-y-0.5 shadow-card;
+  }
+
+  .btn-outline {
+    @apply btn border border-cream/50 text-cream hover:bg-cream/10 hover:-translate-y-0.5;
+  }
+
+  .btn-forest {
+    @apply btn bg-forest text-cream hover:bg-forest-light hover:-translate-y-0.5 shadow-card;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

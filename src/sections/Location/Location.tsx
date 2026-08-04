@@ -1,3 +1,5 @@
+"use client";
+
 import { motion } from 'framer-motion';
 import { Car, MapPin, Navigation, Phone } from 'lucide-react';
 import SectionHeading from '../../components/SectionHeading/SectionHeading';
