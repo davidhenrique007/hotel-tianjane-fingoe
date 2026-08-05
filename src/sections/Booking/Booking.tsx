@@ -47,8 +47,9 @@ export default function Booking() {
   };
 
   return (
-    <section className="relative overflow-hidden bg-forest-dark py-24 md:py-32">
-      <div className="pointer-events-none absolute inset-0 bg-grain opacity-50" />
+    <section id="reservar" className="relative overflow-hidden bg-gradient-to-b from-forest-dark to-forest-ink py-24 md:py-32">
+      <div className="bg-grain pointer-events-none absolute inset-0 opacity-50" />
+      <div className="animate-float-slow pointer-events-none absolute -top-20 right-[6%] h-80 w-80 rounded-full bg-gold/10 blur-[100px]" />
       <RiverLineMark className="pointer-events-none absolute -top-4 right-10 h-16 w-40 opacity-20" color="#C9A66B" />
 
       <div className="container-page relative grid gap-14 lg:grid-cols-[1fr_0.9fr] lg:items-center">
@@ -84,18 +85,16 @@ export default function Booking() {
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.7, delay: 0.1 }}
           onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col gap-4 rounded-2xl bg-cream p-7 shadow-soft md:p-9"
+          className="relative flex flex-col gap-4 overflow-hidden rounded-3xl bg-cream p-7 shadow-elevated md:p-9"
         >
+          <span className="gold-hairline absolute inset-x-0 top-0 h-[3px]" />
+
           {/* Quarto */}
           <div className="flex flex-col gap-1">
-            <label htmlFor="roomId" className="text-sm font-semibold text-forest">
+            <label htmlFor="roomId" className="field-label">
               Quarto pretendido
             </label>
-            <select
-              id="roomId"
-              {...register('roomId')}
-              className="rounded-xl border border-charcoal/15 bg-white px-4 py-3 text-sm text-charcoal focus:border-gold focus:outline-none"
-            >
+            <select id="roomId" {...register('roomId')} className="field-input">
               {rooms.map((room) => (
                 <option key={room.id} value={room.id}>
                   {room.name} ({room.capacity})
@@ -110,29 +109,19 @@ export default function Booking() {
           {/* Datas */}
           <div className="grid grid-cols-2 gap-4">
             <div className="flex flex-col gap-1">
-              <label htmlFor="checkIn" className="flex items-center gap-1.5 text-sm font-semibold text-forest">
+              <label htmlFor="checkIn" className="field-label">
                 <CalendarDays size={15} /> Entrada
               </label>
-              <input
-                id="checkIn"
-                type="date"
-                {...register('checkIn')}
-                className="rounded-xl border border-charcoal/15 bg-white px-3 py-3 text-sm text-charcoal focus:border-gold focus:outline-none"
-              />
+              <input id="checkIn" type="date" {...register('checkIn')} className="field-input" />
               {errors.checkIn && (
                 <p className="text-xs text-red-600">{errors.checkIn.message}</p>
               )}
             </div>
             <div className="flex flex-col gap-1">
-              <label htmlFor="checkOut" className="flex items-center gap-1.5 text-sm font-semibold text-forest">
+              <label htmlFor="checkOut" className="field-label">
                 <CalendarDays size={15} /> Saída
               </label>
-              <input
-                id="checkOut"
-                type="date"
-                {...register('checkOut')}
-                className="rounded-xl border border-charcoal/15 bg-white px-3 py-3 text-sm text-charcoal focus:border-gold focus:outline-none"
-              />
+              <input id="checkOut" type="date" {...register('checkOut')} className="field-input" />
               {errors.checkOut && (
                 <p className="text-xs text-red-600">{errors.checkOut.message}</p>
               )}
@@ -141,7 +130,7 @@ export default function Booking() {
 
           {/* Hóspedes */}
           <div className="flex flex-col gap-1">
-            <label htmlFor="guests" className="flex items-center gap-1.5 text-sm font-semibold text-forest">
+            <label htmlFor="guests" className="field-label">
               <Users size={15} /> Número de hóspedes
             </label>
             <input
@@ -150,7 +139,7 @@ export default function Booking() {
               min={1}
               max={8}
               {...register('guests', { valueAsNumber: true })}
-              className="rounded-xl border border-charcoal/15 bg-white px-4 py-3 text-sm text-charcoal focus:border-gold focus:outline-none"
+              className="field-input"
             />
             {selectedRoom && (
               <p className="text-xs text-forest/60">
@@ -164,7 +153,7 @@ export default function Booking() {
 
           {/* Nome */}
           <div className="flex flex-col gap-1">
-            <label htmlFor="name" className="flex items-center gap-1.5 text-sm font-semibold text-forest">
+            <label htmlFor="name" className="field-label">
               <User size={15} /> Nome completo
             </label>
             <input
@@ -172,7 +161,7 @@ export default function Booking() {
               type="text"
               placeholder="Ex: João Silva"
               {...register('name')}
-              className="rounded-xl border border-charcoal/15 bg-white px-4 py-3 text-sm text-charcoal focus:border-gold focus:outline-none"
+              className="field-input"
             />
             {errors.name && (
               <p className="text-xs text-red-600">{errors.name.message}</p>
@@ -181,7 +170,7 @@ export default function Booking() {
 
           {/* Telefone */}
           <div className="flex flex-col gap-1">
-            <label htmlFor="phone" className="flex items-center gap-1.5 text-sm font-semibold text-forest">
+            <label htmlFor="phone" className="field-label">
               <Phone size={15} /> Telefone
             </label>
             <input
@@ -189,7 +178,7 @@ export default function Booking() {
               type="tel"
               placeholder="Ex: 84 123 4567"
               {...register('phone')}
-              className="rounded-xl border border-charcoal/15 bg-white px-4 py-3 text-sm text-charcoal focus:border-gold focus:outline-none"
+              className="field-input"
             />
             {errors.phone && (
               <p className="text-xs text-red-600">{errors.phone.message}</p>
@@ -206,7 +195,7 @@ export default function Booking() {
               rows={2}
               placeholder="Ex: Preciso de check-in tardio, alergia a travesseiros de pena..."
               {...register('observations')}
-              className="rounded-xl border border-charcoal/15 bg-white px-4 py-3 text-sm text-charcoal focus:border-gold focus:outline-none resize-none"
+              className="field-input resize-none"
             />
             {errors.observations && (
               <p className="text-xs text-red-600">{errors.observations.message}</p>

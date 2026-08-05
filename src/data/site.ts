@@ -19,12 +19,12 @@
 };
 
 export const navLinks = [
-  { label: "Início", href: "/" },
-  { label: "Quartos", href: "#rooms" },
-  { label: "Serviços", href: "#services" },
-  { label: "Galeria", href: "#gallery" },
-  { label: "Localização", href: "#location" },
-  { label: "Contacto", href: "#contact" },
+  { label: "Início", href: "#inicio" },
+  { label: "Quartos", href: "#quartos" },
+  { label: "Serviços", href: "#servicos" },
+  { label: "Galeria", href: "#galeria" },
+  { label: "Localização", href: "#localizacao" },
+  { label: "Contacto", href: "#contactos" },
 ];
 
 export function whatsappLink(message: string): string {

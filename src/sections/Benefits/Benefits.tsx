@@ -15,8 +15,9 @@ const benefits = [
 
 export default function Benefits() {
   return (
-    <section className="relative overflow-hidden bg-forest py-24 md:py-32">
-      <div className="pointer-events-none absolute inset-0 bg-grain opacity-50" />
+    <section className="relative overflow-hidden bg-gradient-to-b from-forest via-forest to-forest-dark py-24 md:py-32">
+      <div className="bg-grain pointer-events-none absolute inset-0 opacity-50" />
+      <div className="animate-float-slower pointer-events-none absolute -top-32 left-1/4 h-[24rem] w-[24rem] rounded-full bg-gold/10 blur-[120px]" />
       <div className="container-page relative flex flex-col gap-14">
         <SectionHeading
           eyebrow="Por que escolher o Tianjane Fingoe"
@@ -33,9 +34,9 @@ export default function Benefits() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-60px' }}
               transition={{ duration: 0.5, delay: index * 0.07 }}
-              className="flex flex-col items-center gap-4 text-center"
+              className="group flex flex-col items-center gap-4 text-center"
             >
-              <span className="flex h-14 w-14 items-center justify-center rounded-full border border-gold/40 text-gold">
+              <span className="flex h-14 w-14 items-center justify-center rounded-full border border-gold/40 text-gold transition-all duration-300 group-hover:border-gold group-hover:bg-gold/10">
                 <benefit.icon size={24} strokeWidth={1.5} />
               </span>
               <p className="text-sm leading-relaxed text-cream/85">{benefit.text}</p>

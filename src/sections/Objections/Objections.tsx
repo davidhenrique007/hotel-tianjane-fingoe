@@ -1,24 +1,24 @@
-"use client";
+﻿"use client";
 
 import { motion } from 'framer-motion';
 import SectionHeading from '../../components/SectionHeading/SectionHeading';
 
 const objections = [
   {
-    question: 'Como faço uma reserva?',
-    answer: 'Pelo botão de WhatsApp em qualquer parte do site. Indique as datas e o quarto pretendido — respondemos com a confirmação e todos os detalhes.',
+    question: 'Como faÃ§o uma reserva?',
+    answer: 'Pelo botÃ£o de WhatsApp em qualquer parte do site. Indique as datas e o quarto pretendido â€” respondemos com a confirmaÃ§Ã£o e todos os detalhes.',
   },
   {
-    question: 'O hotel é seguro?',
-    answer: 'Sim. Mantemos vigilância permanente nas instalações e um ambiente cuidado para que a sua estadia seja tranquila do início ao fim.',
+    question: 'O hotel Ã© seguro?',
+    answer: 'Sim. Mantemos vigilÃ¢ncia permanente nas instalaÃ§Ãµes e um ambiente cuidado para que a sua estadia seja tranquila do inÃ­cio ao fim.',
   },
   {
     question: 'Posso reservar por telefone ou WhatsApp?',
-    answer: 'Sim, é a forma mais rápida. A nossa equipa confirma disponibilidade diretamente consigo, sem burocracia.',
+    answer: 'Sim, Ã© a forma mais rÃ¡pida. A nossa equipa confirma disponibilidade diretamente consigo, sem burocracia.',
   },
   {
     question: 'O hotel atende empresas?',
-    answer: 'Sim, mediante disponibilidade — recebemos regularmente equipas e funcionários em viagem de trabalho pela região.',
+    answer: 'Sim, mediante disponibilidade â€” recebemos regularmente equipas e funcionÃ¡rios em viagem de trabalho pela regiÃ£o.',
   },
 ];
 
@@ -27,8 +27,8 @@ export default function Objections() {
     <section className="bg-white py-24 md:py-32">
       <div className="container-page flex flex-col gap-14">
         <SectionHeading
-          eyebrow="Ainda com dúvidas?"
-          title="Respostas diretas antes de reservar"
+          eyebrow="Ainda com dÃºvidas?"
+          title="Dúvidas frequentes"
           align="center"
         />
 
@@ -40,7 +40,7 @@ export default function Objections() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-60px' }}
               transition={{ duration: 0.5, delay: index * 0.07 }}
-              className="rounded-2xl border border-forest/10 p-6"
+              className="rounded-2xl border border-forest/10 bg-white p-6 shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-gold/30 hover:shadow-elevated"
             >
               <h3 className="mb-2 text-base font-medium text-forest">{item.question}</h3>
               <p className="text-sm leading-relaxed text-charcoal/70">{item.answer}</p>
@@ -51,3 +51,4 @@ export default function Objections() {
     </section>
   );
 }
+

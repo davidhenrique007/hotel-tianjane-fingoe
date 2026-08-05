@@ -4,6 +4,7 @@
   --color-forest: #2F6F5E;
   --color-forest-dark: #1F4D41;
   --color-forest-light: #6CA695;
+  --color-forest-ink: #0F1F1B;
 
   --color-gold: #C9A227;
   --color-gold-light: #E4C765;
@@ -17,24 +18,40 @@
 
   --color-charcoal: #1C2A27;
 
-  --font-display: "Fraunces", serif;
-  --font-body: "Work Sans", sans-serif;
+  --font-display: var(--font-fraunces), "Fraunces", ui-serif, Georgia, serif;
+  --font-body: var(--font-work-sans), "Work Sans", ui-sans-serif, system-ui, sans-serif;
 
   --tracking-widest2: 0.28em;
 
   --background-image-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
 
-  --shadow-soft: 0 20px 60px -20px rgba(28, 42, 39, 0.35);
+  --shadow-soft: 0 20px 60px -20px rgba(15, 31, 27, 0.4);
   --shadow-card: 0 12px 32px -12px rgba(28, 42, 39, 0.18);
+  --shadow-elevated: 0 34px 90px -28px rgba(15, 31, 27, 0.55);
+  --shadow-gold: 0 12px 34px -10px rgba(201, 162, 39, 0.5);
+  --shadow-gold-soft: 0 8px 24px -10px rgba(201, 162, 39, 0.35);
 
   --container-content: 1240px;
 
   --animate-fade-up: fadeUp 0.8s ease forwards;
+  --animate-float-slow: floatSlow 9s ease-in-out infinite;
+  --animate-float-slower: floatSlow 13s ease-in-out infinite;
+  --animate-shimmer: shimmer 2.6s linear infinite;
 }
 
 @keyframes fadeUp {
   0% { opacity: 0; transform: translateY(24px); }
   100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes floatSlow {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(0, -18px, 0) scale(1.04); }
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-120%); }
+  100% { transform: translateX(120%); }
 }
 
 @utility btn {
@@ -74,15 +91,38 @@
   }
 
   .btn-primary {
-    @apply btn bg-gold text-forest-dark hover:bg-gold-light hover:-translate-y-0.5 shadow-card;
+    @apply btn bg-gold text-forest-dark hover:bg-gold-light hover:-translate-y-0.5 shadow-gold-soft hover:shadow-gold;
   }
 
   .btn-outline {
-    @apply btn border border-cream/50 text-cream hover:bg-cream/10 hover:-translate-y-0.5;
+    @apply btn border border-cream/50 text-cream hover:border-gold/60 hover:bg-cream/10 hover:-translate-y-0.5;
   }
 
   .btn-forest {
     @apply btn bg-forest text-cream hover:bg-forest-light hover:-translate-y-0.5 shadow-card;
+  }
+
+  /* Superfícies em vidro fosco — usadas sobre o vídeo do hero e secções escuras */
+  .glass-panel {
+    @apply border border-cream/15 bg-cream/[0.06] backdrop-blur-xl;
+  }
+
+  .glass-panel-light {
+    @apply border border-white/60 bg-white/70 backdrop-blur-xl;
+  }
+
+  /* Traço dourado fino — eco do motivo "linha do rio" usado como assinatura do site */
+  .gold-hairline {
+    @apply bg-gradient-to-r from-transparent via-gold/70 to-transparent;
+  }
+
+  /* Campos do formulário de reserva — estilo único partilhado por todos os inputs */
+  .field-label {
+    @apply flex items-center gap-1.5 text-sm font-semibold text-forest;
+  }
+
+  .field-input {
+    @apply rounded-xl border border-charcoal/15 bg-white px-4 py-3 text-sm text-charcoal transition-all duration-200 focus:border-gold focus:outline-none focus:ring-4 focus:ring-gold/15;
   }
 }
 

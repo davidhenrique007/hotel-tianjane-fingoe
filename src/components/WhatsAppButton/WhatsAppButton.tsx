@@ -21,10 +21,11 @@ export default function WhatsAppButton() {
       whileHover={{ scale: 1.06 }}
       whileTap={{ scale: 0.95 }}
       aria-label="Falar pelo WhatsApp"
-      className="fixed bottom-6 right-6 z-50 flex items-center gap-2 rounded-full bg-forest text-cream shadow-soft px-5 py-4 md:py-3.5 hover:bg-forest-light transition-colors"
+      className="group fixed bottom-6 left-6 z-50 flex items-center gap-2 rounded-full bg-forest px-5 py-4 text-cream shadow-soft transition-colors hover:bg-forest-light md:py-3.5"
     >
+      <span className="absolute inset-0 -z-10 rounded-full bg-forest-light/60 opacity-0 blur-md transition-opacity duration-500 group-hover:opacity-100" />
       <MessageCircle size={22} strokeWidth={2} />
-      <span className="hidden md:inline text-sm font-semibold">Fale connosco</span>
+      <span className="hidden text-sm font-semibold md:inline">Fale connosco</span>
     </motion.a>
   );
 }

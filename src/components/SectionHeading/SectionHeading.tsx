@@ -31,7 +31,10 @@ export default function SectionHeading({
       transition={{ duration: 0.7, ease: 'easeOut' }}
       className={`flex flex-col gap-4 max-w-2xl ${alignClass}`}
     >
-      <span className={`eyebrow ${light ? 'text-gold-light' : ''}`}>{eyebrow}</span>
+      <span className={`eyebrow flex items-center gap-2.5 ${light ? 'text-gold-light' : ''} ${align === 'center' ? 'justify-center' : ''}`}>
+        <span className={`h-px w-6 ${light ? 'bg-gold-light/60' : 'bg-clay/50'}`} aria-hidden="true" />
+        {eyebrow}
+      </span>
       <h2 className={`text-3xl md:text-[2.6rem] leading-[1.1] font-medium ${light ? 'text-cream' : 'text-forest'}`}>
         {title}
       </h2>

@@ -18,9 +18,13 @@ export default function RoomCard({ room, index }: RoomCardProps) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
       transition={{ duration: 0.6, delay: index * 0.08, ease: 'easeOut' }}
-      className="group flex flex-col overflow-hidden rounded-2xl bg-white shadow-card"
+      className="group flex flex-col overflow-hidden rounded-2xl bg-white shadow-card transition-all duration-500 hover:-translate-y-1.5 hover:shadow-elevated"
     >
-      <ImagePlaceholder label={room.imageLabel} aspect="landscape" className="rounded-none" />
+      <div className="overflow-hidden">
+        <div className="transition-transform duration-700 ease-out group-hover:scale-105">
+          <ImagePlaceholder label={room.imageLabel} aspect="landscape" className="rounded-none" />
+        </div>
+      </div>
 
       <div className="flex flex-1 flex-col gap-4 p-6 md:p-7">
         <div>
@@ -39,7 +43,7 @@ export default function RoomCard({ room, index }: RoomCardProps) {
           ))}
         </ul>
 
-        <div className="mt-auto flex items-center justify-between gap-3 pt-4 border-t border-charcoal/10">
+        <div className="mt-auto flex items-center justify-between gap-3 border-t border-charcoal/10 pt-4">
           <span className="flex items-center gap-1.5 text-xs text-charcoal/60">
             <Users size={15} />
             {room.capacity}
@@ -48,9 +52,10 @@ export default function RoomCard({ room, index }: RoomCardProps) {
             href={whatsappLink(`Olá! Gostaria de consultar disponibilidade para o ${room.name} no Hotel Tianjane Fingoe.`)}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-sm font-semibold text-forest hover:text-clay transition-colors"
+            className="group/link flex items-center gap-1.5 text-sm font-semibold text-forest transition-colors hover:text-clay"
           >
-            Consultar disponibilidade →
+            Consultar disponibilidade
+            <span className="transition-transform duration-300 group-hover/link:translate-x-1">→</span>
           </a>
         </div>
       </div>

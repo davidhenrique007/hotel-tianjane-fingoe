@@ -1,18 +1,22 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display } from "next/font/google";
+import { Fraunces, Work_Sans } from "next/font/google";
 import "./globals.css";
 import { siteConfig } from "@/data/site";
 import ChatBot from "@/components/ChatBot/ChatBot";
+import Header from "@/components/Header/Header";
+import Footer from "@/components/Footer/Footer";
+import WhatsAppButton from "@/components/WhatsAppButton/WhatsAppButton";
 import QueryProvider from "@/lib/providers/QueryProvider";
 
-const inter = Inter({
+const fraunces = Fraunces({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-fraunces",
+  axes: ["opsz", "SOFT", "WONK"],
 });
 
-const playfair = Playfair_Display({
+const workSans = Work_Sans({
   subsets: ["latin"],
-  variable: "--font-playfair",
+  variable: "--font-work-sans",
 });
 
 export const metadata: Metadata = {
@@ -60,10 +64,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt" className={`${inter.variable} ${playfair.variable}`}>
+    <html lang="pt" className={`${fraunces.variable} ${workSans.variable}`}>
       <body className="min-h-full flex flex-col antialiased">
         <QueryProvider>
+          <Header />
           {children}
+          <Footer />
+          <WhatsAppButton />
           <ChatBot />
         </QueryProvider>
       </body>

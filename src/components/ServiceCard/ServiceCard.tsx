@@ -39,9 +39,10 @@ export default function ServiceCard({ service, index }: ServiceCardProps) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
       transition={{ duration: 0.5, delay: index * 0.06, ease: 'easeOut' }}
-      className="flex flex-col gap-4 rounded-2xl border border-forest/10 bg-white/60 p-6 transition-colors hover:bg-white hover:border-gold/40"
+      className="group relative flex flex-col gap-4 overflow-hidden rounded-2xl border border-forest/10 bg-white/70 p-6 shadow-card backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-gold/40 hover:bg-white hover:shadow-elevated"
     >
-      <span className="flex h-12 w-12 items-center justify-center rounded-full bg-forest text-gold-light">
+      <span className="pointer-events-none absolute -right-6 -top-6 h-24 w-24 rounded-full bg-gold/0 blur-2xl transition-all duration-500 group-hover:bg-gold/25" />
+      <span className="relative flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-forest to-forest-dark text-gold-light ring-1 ring-gold/20 transition-transform duration-300 group-hover:scale-105">
         <Icon size={22} strokeWidth={1.75} />
       </span>
       <h3 className="text-lg font-medium text-forest">{service.name}</h3>

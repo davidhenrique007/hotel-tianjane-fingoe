@@ -23,16 +23,20 @@ export default function Location() {
           />
 
           <div className="flex flex-col gap-5">
-            <div className="flex items-start gap-3">
-              <MapPin size={20} className="mt-0.5 shrink-0 text-clay" />
+            <div className="flex items-start gap-4">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-forest/8 text-clay ring-1 ring-forest/10">
+                <MapPin size={18} />
+              </span>
               <div>
                 <p className="text-sm font-semibold text-forest">Endereço</p>
                 <p className="text-sm text-charcoal/70">{siteConfig.location}</p>
               </div>
             </div>
 
-            <div className="flex items-start gap-3">
-              <Navigation size={20} className="mt-0.5 shrink-0 text-clay" />
+            <div className="flex items-start gap-4">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-forest/8 text-clay ring-1 ring-forest/10">
+                <Navigation size={18} />
+              </span>
               <div>
                 <p className="text-sm font-semibold text-forest">Pontos próximos</p>
                 <ul className="mt-1 flex flex-col gap-1 text-sm text-charcoal/70">
@@ -43,8 +47,10 @@ export default function Location() {
               </div>
             </div>
 
-            <div className="flex items-start gap-3">
-              <Car size={20} className="mt-0.5 shrink-0 text-clay" />
+            <div className="flex items-start gap-4">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-forest/8 text-clay ring-1 ring-forest/10">
+                <Car size={18} />
+              </span>
               <div>
                 <p className="text-sm font-semibold text-forest">Como chegar</p>
                 <p className="text-sm text-charcoal/70">
@@ -76,7 +82,7 @@ export default function Location() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 0.7 }}
-          className="overflow-hidden rounded-2xl shadow-card"
+          className="overflow-hidden rounded-2xl shadow-elevated ring-1 ring-forest/10"
         >
           <iframe
             title="Localização do Hotel Tianjane Fingoe"

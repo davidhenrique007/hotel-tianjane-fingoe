@@ -28,15 +28,15 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 inset-x-0 z-40 transition-colors duration-300 ${
-        scrolled || menuOpen 
-          ? 'bg-[#2A4A5A]/95 backdrop-blur-sm shadow-soft' 
-          : 'bg-transparent'
+      className={`fixed top-0 inset-x-0 z-40 transition-all duration-500 ${
+        scrolled || menuOpen
+          ? 'border-b border-gold/15 bg-forest-ink/90 backdrop-blur-xl shadow-soft'
+          : 'border-b border-transparent bg-transparent'
       }`}
     >
       <div className="container-page flex items-center justify-between py-4">
-        <a href="#inicio" className="flex items-center gap-2.5 text-cream">
-          <RiverLineMark className="w-9 h-6" color="#D4B896" />
+        <a href="#inicio" className="group flex items-center gap-2.5 text-cream">
+          <RiverLineMark className="w-9 h-6 transition-transform duration-500 group-hover:translate-x-0.5" color="#E4C765" />
           <span className="font-display text-lg leading-none tracking-wide text-cream">
             {siteConfig.shortName}
           </span>
@@ -47,7 +47,7 @@ export default function Header() {
             <a
               key={link.href}
               href={link.href}
-              className="text-sm text-cream/85 hover:text-[#D4B896] transition-colors"
+              className="relative text-sm text-cream/85 transition-colors hover:text-gold-light after:absolute after:-bottom-1 after:left-0 after:h-px after:w-0 after:bg-gold-light after:transition-all after:duration-300 hover:after:w-full"
             >
               {link.label}
             </a>
@@ -81,7 +81,7 @@ export default function Header() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3, ease: 'easeOut' }}
-            className="lg:hidden overflow-hidden bg-[#1A3440]/98 backdrop-blur-sm"
+            className="lg:hidden overflow-hidden bg-forest-ink/98 backdrop-blur-xl"
           >
             <div className="container-page flex flex-col gap-1 pb-6">
               {navLinks.map((link) => (
@@ -89,7 +89,7 @@ export default function Header() {
                   key={link.href}
                   href={link.href}
                   onClick={() => setMenuOpen(false)}
-                  className="py-3 text-base text-cream/90 border-b border-cream/10 active:text-[#D4B896]"
+                  className="py-3 text-base text-cream/90 border-b border-cream/10 active:text-gold-light"
                 >
                   {link.label}
                 </a>

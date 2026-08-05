@@ -12,9 +12,9 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const variantClasses = {
-  primary: 'bg-gold hover:bg-gold-dark text-charcoal shadow-gold hover:shadow-gold/50 transition-all duration-300',
-  outline: 'border-2 border-cream/50 text-cream hover:bg-cream/10',
-  'outline-light': 'border-2 border-charcoal/20 text-charcoal hover:bg-charcoal/5 hover:border-charcoal/40 transition-all duration-300',
+  primary: 'bg-gold hover:bg-gold-light text-forest-dark shadow-gold-soft hover:shadow-gold hover:-translate-y-0.5 transition-all duration-300',
+  outline: 'border-2 border-cream/50 text-cream hover:border-gold/70 hover:bg-cream/10 hover:-translate-y-0.5 transition-all duration-300',
+  'outline-light': 'border-2 border-charcoal/20 text-charcoal hover:bg-charcoal/5 hover:border-charcoal/40 hover:-translate-y-0.5 transition-all duration-300',
   ghost: 'text-charcoal/60 hover:text-charcoal hover:bg-charcoal/5 transition-all duration-300',
 };
 

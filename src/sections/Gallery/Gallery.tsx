@@ -44,15 +44,17 @@ export default function Gallery() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-40px' }}
                 transition={{ duration: 0.45, delay: (index % 4) * 0.06 }}
-                className={cn(index === 0 && 'col-span-2 row-span-2')}
+                className={cn('group overflow-hidden rounded-2xl shadow-card transition-shadow duration-500 hover:shadow-elevated', index === 0 && 'col-span-2 row-span-2')}
               >
-                <ImagePlaceholder
-                  label={image.label}
-                  aspect={index === 0 ? 'square' : 'portrait'}
-                  className="h-full"
-                  src={imageSrc}
-                  alt={image.label}
-                />
+                <div className="h-full transition-transform duration-700 ease-out group-hover:scale-105">
+                  <ImagePlaceholder
+                    label={image.label}
+                    aspect={index === 0 ? 'square' : 'portrait'}
+                    className="h-full rounded-none"
+                    src={imageSrc}
+                    alt={image.label}
+                  />
+                </div>
               </motion.div>
             );
           })}

@@ -7,8 +7,10 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer id="contactos" className="bg-forest-dark text-cream">
-      <div className="container-page py-16 grid gap-12 md:grid-cols-[1.3fr_1fr_1fr]">
+    <footer id="contactos" className="relative overflow-hidden bg-forest-ink text-cream">
+      <div className="bg-grain pointer-events-none absolute inset-0 opacity-30" />
+      <div className="gold-hairline absolute inset-x-0 top-0 h-px" />
+      <div className="container-page relative py-16 grid gap-12 md:grid-cols-[1.3fr_1fr_1fr]">
         <div className="flex flex-col gap-4">
           <div className="flex items-center gap-2.5">
             <RiverLineMark className="w-9 h-6" color="#C9A66B" />
@@ -24,7 +26,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Facebook do Hotel Tianjane Fingoe"
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-cream/20 hover:border-gold hover:text-gold transition-colors"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-cream/20 transition-all duration-300 hover:border-gold hover:text-gold hover:-translate-y-0.5"
             >
               <FacebookIcon size={17} />
             </a>
@@ -33,7 +35,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram do Hotel Tianjane Fingoe"
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-cream/20 hover:border-gold hover:text-gold transition-colors"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-cream/20 transition-all duration-300 hover:border-gold hover:text-gold hover:-translate-y-0.5"
             >
               <InstagramIcon size={17} />
             </a>
@@ -66,7 +68,7 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="border-t border-cream/10">
+      <div className="relative border-t border-cream/10">
         <div className="container-page py-5 flex flex-col md:flex-row items-center justify-between gap-2 text-xs text-cream/50">
           <span>© {year} {siteConfig.hotelName}. Todos os direitos reservados.</span>
           <span>Fingoe · Marávia · Tete · Moçambique</span>
