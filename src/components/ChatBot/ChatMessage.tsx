@@ -1,0 +1,32 @@
+"use client";
+
+import { cn } from '@/utils/cn';
+
+interface ChatMessageProps {
+  role: 'user' | 'assistant';
+  content: string;
+}
+
+export default function ChatMessage({ role, content }: ChatMessageProps) {
+  const isUser = role === 'user';
+
+  return (
+    <div
+      className={cn(
+        'flex w-full',
+        isUser ? 'justify-end' : 'justify-start'
+      )}
+    >
+      <div
+        className={cn(
+          'max-w-[80%] rounded-2xl px-4 py-2 text-sm',
+          isUser
+            ? 'bg-gold text-forest-dark'
+            : 'bg-cream/10 text-cream'
+        )}
+      >
+        {content}
+      </div>
+    </div>
+  );
+}

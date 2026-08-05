@@ -4,9 +4,9 @@
   tagline: "Uma estadia confortável no coração de Fingoe",
   location: "Fingoe · Marávia · Tete",
   addressLine: "Fingoe, Marávia, Tete",
-  whatsappNumber: "25884XXXXXXX",
-  phoneDisplay: "+258 84 XXX XXX",
-  email: "reservas@tianjanefingoe.co.mz",
+  whatsappNumber: "258872626343", 
+  phoneDisplay: "+258 84 4626343", 
+  email: "reservas@tianjanefingoe.co.mz", 
   socials: {
     facebook: "#",
     instagram: "#",
