@@ -1,6 +1,7 @@
-"use client";
+﻿"use client";
 
-import { MessageCircle, X } from 'lucide-react';
+import { useState } from 'react';
+import Avatar3D from './Avatar3D/Avatar3D';
 
 interface ChatButtonProps {
   onClick: () => void;
@@ -8,17 +9,18 @@ interface ChatButtonProps {
 }
 
 export default function ChatButton({ onClick, isOpen }: ChatButtonProps) {
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
-    <button
-      onClick={onClick}
-      className="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-gold shadow-gold-soft transition-all hover:scale-105 hover:shadow-gold"
-      aria-label={isOpen ? 'Fechar chat' : 'Abrir chat'}
+    <div
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
-      {isOpen ? (
-        <X className="h-6 w-6 text-forest-dark" />
-      ) : (
-        <MessageCircle className="h-6 w-6 text-forest-dark" />
-      )}
-    </button>
+      <Avatar3D 
+        onClick={onClick} 
+        isOpen={isOpen} 
+        isHovered={isHovered} 
+      />
+    </div>
   );
 }

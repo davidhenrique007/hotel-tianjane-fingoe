@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Fraunces, Work_Sans } from "next/font/google";
 import "./globals.css";
 import { siteConfig } from "@/data/site";
 import ChatBot from "@/components/ChatBot/ChatBot";
@@ -7,17 +6,6 @@ import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton/WhatsAppButton";
 import QueryProvider from "@/lib/providers/QueryProvider";
-
-const fraunces = Fraunces({
-  subsets: ["latin"],
-  variable: "--font-fraunces",
-  axes: ["opsz", "SOFT", "WONK"],
-});
-
-const workSans = Work_Sans({
-  subsets: ["latin"],
-  variable: "--font-work-sans",
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://tianjanefingoe.co.mz"),
@@ -64,7 +52,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt" className={`${fraunces.variable} ${workSans.variable}`}>
+    <html lang="pt">
+      <head>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,100..900,0..100,0..1&family=Work+Sans:wght@100..900&display=swap"
+          rel="stylesheet"
+        />
+      </head>
       <body className="min-h-full flex flex-col antialiased">
         <QueryProvider>
           <Header />
