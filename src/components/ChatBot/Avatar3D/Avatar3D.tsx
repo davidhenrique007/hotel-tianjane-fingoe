@@ -1,17 +1,175 @@
-﻿"use client";
+"use client";
 
-import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect } from "react";
+import { Canvas } from '@react-three/fiber';
+import { OrbitControls, Environment, Float, Html } from '@react-three/drei';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect, useRef } from 'react';
+import * as THREE from 'three';
 
-interface AvatarProps {
-  onClick: () => void;
-  isOpen: boolean;
-  isHovered: boolean;
+// Componente do rosto 3D humano
+function HumanHead({ isBlinking, isSmiling, isTalking }: { 
+  isBlinking: boolean; 
+  isSmiling: boolean;
+  isTalking: boolean;
+}) {
+  const headRef = useRef<THREE.Group>(null);
+  const eyeLidRef = useRef<THREE.Mesh>(null);
+  const mouthRef = useRef<THREE.Mesh>(null);
+
+  // Animação de respiração
+  useEffect(() => {
+    if (headRef.current) {
+      const interval = setInterval(() => {
+        headRef.current?.position.set(
+          0,
+          Math.sin(Date.now() / 2000) * 0.03 + 0.1,
+          0
+        );
+      }, 50);
+      return () => clearInterval(interval);
+    }
+  }, []);
+
+  return (
+    <group ref={headRef} position={[0, 0.1, 0]}>
+      {/* Cabelo - feminino elegante */}
+      <mesh position={[0, 0.62, 0.1]} castShadow>
+        <sphereGeometry args={[0.38, 32, 32]} />
+        <meshStandardMaterial color="#2C1810" roughness={0.8} metalness={0.1} />
+      </mesh>
+      
+      {/* Cabelo - volume lateral */}
+      <mesh position={[-0.3, 0.55, 0]} castShadow>
+        <sphereGeometry args={[0.2, 16, 16]} />
+        <meshStandardMaterial color="#2C1810" roughness={0.8} metalness={0.1} />
+      </mesh>
+      <mesh position={[0.3, 0.55, 0]} castShadow>
+        <sphereGeometry args={[0.2, 16, 16]} />
+        <meshStandardMaterial color="#2C1810" roughness={0.8} metalness={0.1} />
+      </mesh>
+
+      {/* Cabeça */}
+      <mesh castShadow>
+        <sphereGeometry args={[0.35, 64, 64]} />
+        <meshStandardMaterial 
+          color="#F5D0B8" 
+          roughness={0.4} 
+          metalness={0.05}
+        />
+      </mesh>
+
+      {/* Pescoço */}
+      <mesh position={[0, -0.35, 0]} castShadow>
+        <cylinderGeometry args={[0.15, 0.2, 0.15, 16]} />
+        <meshStandardMaterial color="#F5D0B8" roughness={0.4} />
+      </mesh>
+
+      {/* Olhos */}
+      <group position={[0, 0.15, 0.32]}>
+        {/* Branco dos olhos */}
+        <mesh position={[-0.12, 0, 0]} castShadow>
+          <sphereGeometry args={[0.07, 32, 32]} />
+          <meshStandardMaterial color="#FFFFFF" roughness={0.1} metalness={0.05} />
+        </mesh>
+        <mesh position={[0.12, 0, 0]} castShadow>
+          <sphereGeometry args={[0.07, 32, 32]} />
+          <meshStandardMaterial color="#FFFFFF" roughness={0.1} metalness={0.05} />
+        </mesh>
+
+        {/* Íris - olhos castanhos/escuros */}
+        <mesh position={[-0.12, 0, 0.08]} castShadow>
+          <sphereGeometry args={[0.045, 32, 32]} />
+          <meshStandardMaterial color="#3D1F0A" roughness={0.2} metalness={0.1} />
+        </mesh>
+        <mesh position={[0.12, 0, 0.08]} castShadow>
+          <sphereGeometry args={[0.045, 32, 32]} />
+          <meshStandardMaterial color="#3D1F0A" roughness={0.2} metalness={0.1} />
+        </mesh>
+
+        {/* Brilho nos olhos */}
+        <mesh position={[-0.1, 0.03, 0.1]} castShadow>
+          <sphereGeometry args={[0.015, 16, 16]} />
+          <meshStandardMaterial color="#FFFFFF" emissive="#FFFFFF" emissiveIntensity={0.5} />
+        </mesh>
+        <mesh position={[0.14, 0.03, 0.1]} castShadow>
+          <sphereGeometry args={[0.015, 16, 16]} />
+          <meshStandardMaterial color="#FFFFFF" emissive="#FFFFFF" emissiveIntensity={0.5} />
+        </mesh>
+
+        {/* Pálpebras para piscar */}
+        <mesh 
+          ref={eyeLidRef}
+          position={[-0.12, 0, 0.08]}
+          scale={[1, isBlinking ? 0.1 : 1, 1]}
+        >
+          <sphereGeometry args={[0.07, 32, 32]} />
+          <meshStandardMaterial color="#F5D0B8" roughness={0.4} />
+        </mesh>
+        <mesh 
+          position={[0.12, 0, 0.08]}
+          scale={[1, isBlinking ? 0.1 : 1, 1]}
+        >
+          <sphereGeometry args={[0.07, 32, 32]} />
+          <meshStandardMaterial color="#F5D0B8" roughness={0.4} />
+        </mesh>
+      </group>
+
+      {/* Sobrancelhas */}
+      <mesh position={[-0.12, 0.22, 0.32]} rotation={[-0.1, 0, 0.1]}>
+        <boxGeometry args={[0.08, 0.015, 0.015]} />
+        <meshStandardMaterial color="#2C1810" roughness={0.9} />
+      </mesh>
+      <mesh position={[0.12, 0.22, 0.32]} rotation={[-0.1, 0, -0.1]}>
+        <boxGeometry args={[0.08, 0.015, 0.015]} />
+        <meshStandardMaterial color="#2C1810" roughness={0.9} />
+      </mesh>
+
+      {/* Nariz */}
+      <mesh position={[0, -0.02, 0.38]} castShadow>
+        <sphereGeometry args={[0.04, 16, 16]} />
+        <meshStandardMaterial color="#E8C4A8" roughness={0.4} />
+      </mesh>
+      <mesh position={[0, -0.06, 0.4]} castShadow>
+        <sphereGeometry args={[0.025, 16, 16]} />
+        <meshStandardMaterial color="#E8C4A8" roughness={0.4} />
+      </mesh>
+
+      {/* Boca */}
+      <mesh 
+        ref={mouthRef}
+        position={[0, -0.12, 0.36]} 
+        scale={[1, isSmiling || isTalking ? 1.3 : 0.5, 1]}
+      >
+        <torusGeometry args={[0.05, 0.015, 8, 16, Math.PI]} />
+        <meshStandardMaterial color="#A66B5A" roughness={0.3} metalness={0.1} />
+      </mesh>
+
+      {/* Bochechas - blush */}
+      <mesh position={[-0.18, -0.05, 0.28]} castShadow>
+        <sphereGeometry args={[0.03, 16, 16]} />
+        <meshStandardMaterial color="#E8A0A0" transparent opacity={0.3} roughness={0.5} />
+      </mesh>
+      <mesh position={[0.18, -0.05, 0.28]} castShadow>
+        <sphereGeometry args={[0.03, 16, 16]} />
+        <meshStandardMaterial color="#E8A0A0" transparent opacity={0.3} roughness={0.5} />
+      </mesh>
+    </group>
+  );
 }
 
-export default function Avatar3D({ onClick, isOpen, isHovered }: AvatarProps) {
+// Componente principal do Avatar 3D
+export default function Avatar3D({ 
+  onClick, 
+  isOpen,
+  isHovered 
+}: { 
+  onClick: () => void; 
+  isOpen: boolean;
+  isHovered: boolean;
+}) {
   const [isBlinking, setIsBlinking] = useState(false);
-  const [isWaving, setIsWaving] = useState(false);
+  const [isSmiling, setIsSmiling] = useState(false);
+  const [isTalking, setIsTalking] = useState(false);
   const [showMessage, setShowMessage] = useState<string | null>(null);
 
   // Piscar
@@ -23,13 +181,18 @@ export default function Avatar3D({ onClick, isOpen, isHovered }: AvatarProps) {
     return () => clearInterval(blinkInterval);
   }, []);
 
-  // Aceno
+  // Sorriso no hover
   useEffect(() => {
-    const waveInterval = setInterval(() => {
-      setIsWaving(true);
-      setTimeout(() => setIsWaving(false), 800);
-    }, 15000);
-    return () => clearInterval(waveInterval);
+    setIsSmiling(isHovered);
+  }, [isHovered]);
+
+  // Fala simulada
+  useEffect(() => {
+    const talkInterval = setInterval(() => {
+      setIsTalking(true);
+      setTimeout(() => setIsTalking(false), 2000);
+    }, 8000);
+    return () => clearInterval(talkInterval);
   }, []);
 
   // Mensagem de boas-vindas
@@ -50,39 +213,44 @@ export default function Avatar3D({ onClick, isOpen, isHovered }: AvatarProps) {
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
     >
-      {/* Glow externo - estilo Cortana */}
+      {/* Glow holográfico */}
       <motion.div
-        className="absolute -inset-8 rounded-full bg-blue-500/20 blur-3xl"
+        className="absolute -inset-10 rounded-full bg-blue-500/20 blur-3xl"
         animate={{
-          scale: isHovered ? 1.4 : 1,
-          opacity: isHovered ? 0.9 : 0.5,
+          scale: isHovered ? 1.3 : 1,
+          opacity: isHovered ? 0.8 : 0.4,
         }}
         transition={{ duration: 0.6 }}
       />
 
-      {/* Anel de luz pulsante - estilo Cortana */}
+      {/* Anel de luz */}
       <motion.div
-        className="absolute -inset-4 rounded-full border-2 border-blue-400/30"
+        className="absolute -inset-5 rounded-full border-2 border-blue-400/30"
         animate={{
-          scale: [1, 1.15, 1],
-          opacity: [0.3, 0.8, 0.3],
+          scale: [1, 1.1, 1],
+          opacity: [0.3, 0.7, 0.3],
         }}
         transition={{ duration: 2.5, repeat: Infinity }}
       />
 
-      {/* Avatar - Rosto humano premium */}
-      <motion.div
-        className="relative h-24 w-24 overflow-hidden rounded-full bg-gradient-to-br from-blue-500 via-indigo-400 to-purple-400 shadow-xl shadow-blue-500/30 ring-2 ring-blue-300/50"
-        animate={{
-          y: isHovered ? -8 : 0,
-          boxShadow: isHovered
-            ? "0 20px 60px -10px rgba(59,130,246,0.6)"
-            : "0 12px 34px -10px rgba(59,130,246,0.4)",
-        }}
-        transition={{ duration: 0.4, type: "spring" }}
-      >
-        {/* Fundo holográfico */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-400/20 via-transparent to-purple-400/20" />
+      {/* Canvas 3D */}
+      <div className="relative h-28 w-28 overflow-hidden rounded-full bg-gradient-to-br from-blue-900/80 via-indigo-800/60 to-purple-900/80 shadow-2xl shadow-blue-500/30 ring-2 ring-blue-400/40">
+        <Canvas camera={{ position: [0, 0.1, 1.2], fov: 45 }}>
+          <ambientLight intensity={0.5} />
+          <directionalLight position={[2, 2, 2]} intensity={1} />
+          <directionalLight position={[-1, 1, -1]} intensity={0.3} color="#8888ff" />
+          <pointLight position={[0, 0.5, 1]} intensity={0.5} color="#4488ff" />
+          
+          <Float speed={1.5} rotationIntensity={0.3} floatIntensity={0.2}>
+            <HumanHead 
+              isBlinking={isBlinking} 
+              isSmiling={isSmiling || isHovered}
+              isTalking={isTalking}
+            />
+          </Float>
+          
+          <Environment preset="city" />
+        </Canvas>
 
         {/* Partículas flutuantes */}
         <motion.div
@@ -100,98 +268,7 @@ export default function Avatar3D({ onClick, isOpen, isHovered }: AvatarProps) {
           animate={{ y: [0, -8, 0], opacity: [0, 1, 0] }}
           transition={{ duration: 1.8, repeat: Infinity, delay: 1 }}
         />
-
-        {/* Rosto humano estilizado */}
-        <div className="relative flex h-full w-full items-center justify-center">
-          {/* Forma da cabeça */}
-          <div className="absolute inset-2 rounded-full bg-gradient-to-b from-[#F5D0B8] to-[#E8C4A8] shadow-inner" />
-
-          {/* Cabelo - feminino elegante */}
-          <div className="absolute -top-1 left-1/2 h-10 w-16 -translate-x-1/2 rounded-full bg-gradient-to-b from-[#2C1810] to-[#1A0E08]" />
-          <div className="absolute -left-1 top-3 h-8 w-6 rounded-full bg-[#2C1810]" />
-          <div className="absolute -right-1 top-3 h-8 w-6 rounded-full bg-[#2C1810]" />
-
-          {/* Olhos */}
-          <div className="absolute left-1/2 top-1/3 flex -translate-x-1/2 gap-4">
-            {/* Olho esquerdo */}
-            <motion.div
-              className="relative h-3.5 w-3.5 rounded-full bg-white shadow-lg"
-              animate={{ scaleY: isBlinking ? 0.1 : 1 }}
-              transition={{ duration: 0.1 }}
-            >
-              <div className="absolute inset-0.5 rounded-full bg-[#3D1F0A]" />
-              <div className="absolute -top-0.5 left-1 h-1.5 w-1.5 rounded-full bg-white/80" />
-            </motion.div>
-            {/* Olho direito */}
-            <motion.div
-              className="relative h-3.5 w-3.5 rounded-full bg-white shadow-lg"
-              animate={{ scaleY: isBlinking ? 0.1 : 1 }}
-              transition={{ duration: 0.1 }}
-            >
-              <div className="absolute inset-0.5 rounded-full bg-[#3D1F0A]" />
-              <div className="absolute -top-0.5 left-1 h-1.5 w-1.5 rounded-full bg-white/80" />
-            </motion.div>
-          </div>
-
-          {/* Sobrancelhas */}
-          <div className="absolute left-[34px] top-[18px] h-0.5 w-4 rounded-full bg-[#2C1810] rotate-[-8deg]" />
-          <div className="absolute right-[34px] top-[18px] h-0.5 w-4 rounded-full bg-[#2C1810] rotate-[8deg]" />
-
-          {/* Nariz */}
-          <div className="absolute left-1/2 top-[42%] h-3 w-2 -translate-x-1/2 rounded-full bg-[#E8C4A8]" />
-          <div className="absolute left-1/2 top-[45%] h-2 w-3 -translate-x-1/2 rounded-full bg-[#E8C4A8]" />
-
-          {/* Boca */}
-          <motion.div
-            className="absolute bottom-[26%] left-1/2 -translate-x-1/2"
-            animate={{
-              scaleY: isHovered ? 1.3 : 1,
-            }}
-            transition={{ duration: 0.3 }}
-          >
-            <svg width="16" height="8" viewBox="0 0 16 8">
-              <motion.path
-                d="M2 2 C5 6, 11 6, 14 2"
-                fill="none"
-                stroke="#A66B5A"
-                strokeWidth="1.8"
-                strokeLinecap="round"
-                animate={{ pathLength: isHovered ? 1 : 0.3 }}
-                transition={{ duration: 0.5 }}
-              />
-            </svg>
-          </motion.div>
-
-          {/* Bochechas */}
-          <div className="absolute bottom-[30%] left-[6px] h-3 w-3 rounded-full bg-pink-300/30 blur-[2px]" />
-          <div className="absolute bottom-[30%] right-[6px] h-3 w-3 rounded-full bg-pink-300/30 blur-[2px]" />
-        </div>
-
-        {/* Braço (aceno) */}
-        <motion.div
-          className="absolute -right-2 top-1/2 origin-bottom"
-          animate={{
-            rotate: isWaving || isHovered ? [0, -35, 0, -25, 0] : 0,
-          }}
-          transition={{
-            duration: 0.9,
-            repeat: isWaving || isHovered ? 1 : 0,
-            ease: "easeInOut",
-          }}
-        >
-          <div className="h-8 w-1.5 rounded-full bg-[#F5D0B8] ring-1 ring-blue-400/20" />
-          <div className="mt-0.5 h-3 w-1.5 rounded-full bg-[#F5D0B8]" />
-        </motion.div>
-
-        {/* Brilho holográfico */}
-        <motion.div
-          className="absolute inset-0 rounded-full bg-gradient-to-tr from-white/20 via-transparent to-white/10"
-          animate={{
-            opacity: isHovered ? [0.3, 0.7, 0.3] : [0.2, 0.5, 0.2],
-          }}
-          transition={{ duration: 2, repeat: Infinity }}
-        />
-      </motion.div>
+      </div>
 
       {/* Bolha de mensagem */}
       <AnimatePresence>

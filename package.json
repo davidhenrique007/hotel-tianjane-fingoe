@@ -1,33 +1,36 @@
 {
-  "name": "hotel-tianjane-fingoe",
-  "private": true,
-  "version": "0.0.0",
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "oxlint src"
-  },
-  "dependencies": {
-    "@hookform/resolvers": "^5.7.1",
-    "@tanstack/react-query": "^5.101.4",
-    "framer-motion": "^12.43.0",
-    "groq-sdk": "^1.5.0",
-    "lucide-react": "^1.26.0",
-    "next": "^16.2.12",
-    "react": "^19.2.7",
-    "react-dom": "^19.2.7",
-    "react-hook-form": "^7.84.0",
-    "zod": "^4.4.3"
-  },
-  "devDependencies": {
-    "@tailwindcss/postcss": "^4.2.4",
-    "@types/node": "^24.13.2",
-    "@types/react": "^19.2.17",
-    "@types/react-dom": "^19.2.3",
-    "oxlint": "^1.71.0",
-    "postcss": "^8.5.22",
-    "tailwindcss": "^4.2.4",
-    "typescript": "~6.0.2"
-  }
+    "name": "hotel-tianjane-fingoe",
+    "private": true,
+    "version": "0.0.0",
+    "scripts": {
+        "lint": "oxlint src",
+        "build": "next build --webpack",
+        "dev": "next dev",
+        "start": "next start"
+    },
+    "dependencies": {
+        "@hookform/resolvers": "^5.7.1",
+        "@react-three/drei": "^10.7.8",
+        "@react-three/fiber": "^9.7.0",
+        "@tanstack/react-query": "^5.101.4",
+        "framer-motion": "^12.43.0",
+        "groq-sdk": "^1.5.0",
+        "lucide-react": "^1.26.0",
+        "next": "^16.2.12",
+        "react": "^19.2.7",
+        "react-dom": "^19.2.7",
+        "react-hook-form": "^7.84.0",
+        "three": "^0.185.1",
+        "zod": "^4.4.3"
+    },
+    "devDependencies": {
+        "@tailwindcss/postcss": "^4.2.4",
+        "@types/node": "^24.13.2",
+        "@types/react": "^19.2.17",
+        "@types/react-dom": "^19.2.3",
+        "oxlint": "^1.71.0",
+        "postcss": "^8.5.22",
+        "tailwindcss": "^4.2.4",
+        "typescript": "~6.0.2"
+    }
 }
