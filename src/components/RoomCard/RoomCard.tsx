@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from 'framer-motion';
 import { Check, Users } from 'lucide-react';
@@ -18,21 +18,22 @@ export default function RoomCard({ room, index }: RoomCardProps) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
       transition={{ duration: 0.6, delay: index * 0.08, ease: 'easeOut' }}
-      className="group flex flex-col overflow-hidden rounded-2xl bg-white shadow-card transition-all duration-500 hover:-translate-y-1.5 hover:shadow-elevated"
+      className="group relative flex flex-col overflow-hidden rounded-xl bg-white shadow-card transition-all duration-500 sm:rounded-2xl hover:-translate-y-1.5 hover:shadow-elevated"
     >
+      <span className="pointer-events-none absolute -right-8 -top-8 z-10 h-28 w-28 rounded-full bg-gold/0 blur-2xl transition-all duration-500 group-hover:bg-gold/25" />
       <div className="overflow-hidden">
         <div className="transition-transform duration-700 ease-out group-hover:scale-105">
           <ImagePlaceholder label={room.imageLabel} aspect="landscape" className="rounded-none" />
         </div>
       </div>
 
-      <div className="flex flex-1 flex-col gap-4 p-6 md:p-7">
+      <div className="flex flex-1 flex-col gap-3 p-3 sm:gap-4 sm:p-5 md:p-7">
         <div>
           <span className="eyebrow">{room.tagline}</span>
-          <h3 className="mt-1 text-2xl font-medium text-forest">{room.name}</h3>
+          <h3 className="mt-1 text-lg font-medium leading-tight text-forest sm:text-xl md:text-2xl">{room.name}</h3>
         </div>
 
-        <p className="text-charcoal/70 text-[15px] leading-relaxed">{room.description}</p>
+        <p className="text-xs leading-relaxed text-charcoal/70 sm:text-[15px]">{room.description}</p>
 
         <ul className="flex flex-col gap-2.5">
           {room.benefits.map((benefit) => (
@@ -49,16 +50,18 @@ export default function RoomCard({ room, index }: RoomCardProps) {
             {room.capacity}
           </span>
           <a
-            href={whatsappLink(`Olá! Gostaria de consultar disponibilidade para o ${room.name} no Hotel Tianjane Fingoe.`)}
+            href={whatsappLink(`OlÃ¡! Gostaria de consultar disponibilidade para o ${room.name} no Hotel Tianjane Fingoe.`)}
             target="_blank"
             rel="noopener noreferrer"
             className="group/link flex items-center gap-1.5 text-sm font-semibold text-forest transition-colors hover:text-clay"
           >
             Consultar disponibilidade
-            <span className="transition-transform duration-300 group-hover/link:translate-x-1">→</span>
+            <span className="transition-transform duration-300 group-hover/link:translate-x-1">â†’</span>
           </a>
         </div>
       </div>
     </motion.article>
   );
 }
+
+

@@ -25,7 +25,7 @@ export default function Gallery() {
   };
 
   return (
-    <section id="galeria" className="bg-white py-24 md:py-32">
+    <section id="galeria" className="bg-white pt-12 pb-8 md:pt-12 md:pb-8">
       <div className="container-page flex flex-col gap-14">
         <SectionHeading
           eyebrow="Galeria"
@@ -73,4 +73,6 @@ export default function Gallery() {
     </section>
   );
 }
+
+
 

@@ -50,10 +50,12 @@
 @keyframes fadeUp { 0% { opacity:0; transform:translateY(24px); } 100% { opacity:1; transform:translateY(0); } }
 @keyframes floatSlow { 0%,100% { transform:translate3d(0,0,0) scale(1); } 50% { transform:translate3d(0,-18px,0) scale(1.04); } }
 @keyframes shimmer { 0% { transform:translateX(-120%); } 100% { transform:translateX(120%); } }
+@keyframes twinkle { 0%,100% { opacity:0.15; transform:scale(0.75); } 50% { opacity:1; transform:scale(1.2); } }
 
 .animate-fade-up { animation: fadeUp 0.8s ease forwards; }
 .animate-float-slow { animation: floatSlow 9s ease-in-out infinite; }
 .animate-float-slower { animation: floatSlow 13s ease-in-out infinite; }
 .animate-shimmer { animation: shimmer 2.6s linear infinite; }
+.animate-twinkle { animation: twinkle 3.6s ease-in-out infinite; }
 
 @media (prefers-reduced-motion: reduce) { *,*::before,*::after { animation-duration:0.001ms!important; animation-iteration-count:1!important; transition-duration:0.001ms!important; scroll-behavior:auto!important; } }

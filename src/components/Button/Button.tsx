@@ -1,4 +1,5 @@
-// src/components/Button/Button.tsx
+﻿"use client";
+
 import { cn } from '../../utils/cn';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -7,8 +8,6 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   target?: string;
   rel?: string;
   icon?: React.ReactNode;
-  children: React.ReactNode;
-  className?: string;
 }
 
 const variantClasses = {
@@ -19,34 +18,49 @@ const variantClasses = {
 };
 
 export default function Button({
+  children,
   variant = 'primary',
+  className = '',
   href,
   target,
   rel,
   icon,
-  children,
-  className,
   ...props
 }: ButtonProps) {
   const baseClasses = cn(
-    'inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold tracking-wide transition-all duration-300 ease-out',
+    'group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full px-7 py-3.5 text-sm font-semibold tracking-wide transition-all duration-300 ease-out',
     variantClasses[variant],
     className
+  );
+
+  const shine =
+    variant === 'primary' ? (
+      <span aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden rounded-full">
+        <span className="absolute inset-y-0 -left-1/3 w-1/3 -skew-x-12 bg-gradient-to-r from-transparent via-white/45 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-hover:animate-shimmer" />
+      </span>
+    ) : null;
+
+  const content = (
+    <>
+      {shine}
+      <span className="relative z-10 inline-flex items-center gap-2">
+        {children}
+        {icon}
+      </span>
+    </>
   );
 
   if (href) {
     return (
       <a href={href} target={target} rel={rel} className={baseClasses}>
-        {children}
-        {icon && <span>{icon}</span>}
+        {content}
       </a>
     );
   }
 
   return (
     <button className={baseClasses} {...props}>
-      {children}
-      {icon && <span>{icon}</span>}
+      {content}
     </button>
   );
 }

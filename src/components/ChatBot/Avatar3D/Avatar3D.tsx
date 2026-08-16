@@ -1,7 +1,7 @@
 "use client";
 
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Environment, Float, Html } from '@react-three/drei';
+import { Float } from '@react-three/drei';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect, useRef } from 'react';
 import * as THREE from 'three';
@@ -31,127 +31,47 @@ function HumanHead({ isBlinking, isSmiling, isTalking }: {
   }, []);
 
   return (
-    <group ref={headRef} position={[0, 0.1, 0]}>
-      {/* Cabelo - feminino elegante */}
-      <mesh position={[0, 0.62, 0.1]} castShadow>
-        <sphereGeometry args={[0.38, 32, 32]} />
-        <meshStandardMaterial color="#2C1810" roughness={0.8} metalness={0.1} />
+    <group ref={headRef} position={[0, 0.08, 0]}>
+      {/* Dois pequenos chifres/topos (estilizados) para coincidir com a 2ª imagem */}
+      <mesh position={[-0.12, 0.42, 0.06]} castShadow>
+        <sphereGeometry args={[0.08, 16, 16]} />
+        <meshStandardMaterial color="#FFF7F2" roughness={0.4} metalness={0.02} />
       </mesh>
-      
-      {/* Cabelo - volume lateral */}
-      <mesh position={[-0.3, 0.55, 0]} castShadow>
-        <sphereGeometry args={[0.2, 16, 16]} />
-        <meshStandardMaterial color="#2C1810" roughness={0.8} metalness={0.1} />
-      </mesh>
-      <mesh position={[0.3, 0.55, 0]} castShadow>
-        <sphereGeometry args={[0.2, 16, 16]} />
-        <meshStandardMaterial color="#2C1810" roughness={0.8} metalness={0.1} />
+      <mesh position={[0.12, 0.42, 0.06]} castShadow>
+        <sphereGeometry args={[0.08, 16, 16]} />
+        <meshStandardMaterial color="#FFF7F2" roughness={0.4} metalness={0.02} />
       </mesh>
 
-      {/* Cabeça */}
+      {/* Cabeça: esfera maior, muito suave e clara */}
       <mesh castShadow>
-        <sphereGeometry args={[0.35, 64, 64]} />
-        <meshStandardMaterial 
-          color="#F5D0B8" 
-          roughness={0.4} 
-          metalness={0.05}
-        />
+        <sphereGeometry args={[0.5, 64, 64]} />
+        <meshStandardMaterial color="#FFF7F2" roughness={0.32} metalness={0.02} />
       </mesh>
 
-      {/* Pescoço */}
-      <mesh position={[0, -0.35, 0]} castShadow>
-        <cylinderGeometry args={[0.15, 0.2, 0.15, 16]} />
-        <meshStandardMaterial color="#F5D0B8" roughness={0.4} />
+      {/* Olhos simplificados: riscos horizontais */}
+      <mesh position={[-0.09, 0.06, 0.45]} rotation={[0, 0, 0]}>
+        <boxGeometry args={[0.14, 0.008, 0.02]} />
+        <meshStandardMaterial color="#262626" roughness={0.25} />
+      </mesh>
+      <mesh position={[0.09, 0.06, 0.45]} rotation={[0, 0, 0]}>
+        <boxGeometry args={[0.14, 0.008, 0.02]} />
+        <meshStandardMaterial color="#262626" roughness={0.25} />
       </mesh>
 
-      {/* Olhos */}
-      <group position={[0, 0.15, 0.32]}>
-        {/* Branco dos olhos */}
-        <mesh position={[-0.12, 0, 0]} castShadow>
-          <sphereGeometry args={[0.07, 32, 32]} />
-          <meshStandardMaterial color="#FFFFFF" roughness={0.1} metalness={0.05} />
-        </mesh>
-        <mesh position={[0.12, 0, 0]} castShadow>
-          <sphereGeometry args={[0.07, 32, 32]} />
-          <meshStandardMaterial color="#FFFFFF" roughness={0.1} metalness={0.05} />
-        </mesh>
-
-        {/* Íris - olhos castanhos/escuros */}
-        <mesh position={[-0.12, 0, 0.08]} castShadow>
-          <sphereGeometry args={[0.045, 32, 32]} />
-          <meshStandardMaterial color="#3D1F0A" roughness={0.2} metalness={0.1} />
-        </mesh>
-        <mesh position={[0.12, 0, 0.08]} castShadow>
-          <sphereGeometry args={[0.045, 32, 32]} />
-          <meshStandardMaterial color="#3D1F0A" roughness={0.2} metalness={0.1} />
-        </mesh>
-
-        {/* Brilho nos olhos */}
-        <mesh position={[-0.1, 0.03, 0.1]} castShadow>
-          <sphereGeometry args={[0.015, 16, 16]} />
-          <meshStandardMaterial color="#FFFFFF" emissive="#FFFFFF" emissiveIntensity={0.5} />
-        </mesh>
-        <mesh position={[0.14, 0.03, 0.1]} castShadow>
-          <sphereGeometry args={[0.015, 16, 16]} />
-          <meshStandardMaterial color="#FFFFFF" emissive="#FFFFFF" emissiveIntensity={0.5} />
-        </mesh>
-
-        {/* Pálpebras para piscar */}
-        <mesh 
-          ref={eyeLidRef}
-          position={[-0.12, 0, 0.08]}
-          scale={[1, isBlinking ? 0.1 : 1, 1]}
-        >
-          <sphereGeometry args={[0.07, 32, 32]} />
-          <meshStandardMaterial color="#F5D0B8" roughness={0.4} />
-        </mesh>
-        <mesh 
-          position={[0.12, 0, 0.08]}
-          scale={[1, isBlinking ? 0.1 : 1, 1]}
-        >
-          <sphereGeometry args={[0.07, 32, 32]} />
-          <meshStandardMaterial color="#F5D0B8" roughness={0.4} />
-        </mesh>
-      </group>
-
-      {/* Sobrancelhas */}
-      <mesh position={[-0.12, 0.22, 0.32]} rotation={[-0.1, 0, 0.1]}>
-        <boxGeometry args={[0.08, 0.015, 0.015]} />
-        <meshStandardMaterial color="#2C1810" roughness={0.9} />
+      {/* Bochechas grandes e redondas */}
+      <mesh position={[-0.18, -0.02, 0.36]} castShadow>
+        <sphereGeometry args={[0.05, 16, 16]} />
+        <meshStandardMaterial color="#F4A0A8" transparent opacity={0.6} roughness={0.45} />
       </mesh>
-      <mesh position={[0.12, 0.22, 0.32]} rotation={[-0.1, 0, -0.1]}>
-        <boxGeometry args={[0.08, 0.015, 0.015]} />
-        <meshStandardMaterial color="#2C1810" roughness={0.9} />
+      <mesh position={[0.18, -0.02, 0.36]} castShadow>
+        <sphereGeometry args={[0.05, 16, 16]} />
+        <meshStandardMaterial color="#F4A0A8" transparent opacity={0.6} roughness={0.45} />
       </mesh>
 
-      {/* Nariz */}
-      <mesh position={[0, -0.02, 0.38]} castShadow>
-        <sphereGeometry args={[0.04, 16, 16]} />
-        <meshStandardMaterial color="#E8C4A8" roughness={0.4} />
-      </mesh>
-      <mesh position={[0, -0.06, 0.4]} castShadow>
-        <sphereGeometry args={[0.025, 16, 16]} />
-        <meshStandardMaterial color="#E8C4A8" roughness={0.4} />
-      </mesh>
-
-      {/* Boca */}
-      <mesh 
-        ref={mouthRef}
-        position={[0, -0.12, 0.36]} 
-        scale={[1, isSmiling || isTalking ? 1.3 : 0.5, 1]}
-      >
-        <torusGeometry args={[0.05, 0.015, 8, 16, Math.PI]} />
-        <meshStandardMaterial color="#A66B5A" roughness={0.3} metalness={0.1} />
-      </mesh>
-
-      {/* Bochechas - blush */}
-      <mesh position={[-0.18, -0.05, 0.28]} castShadow>
-        <sphereGeometry args={[0.03, 16, 16]} />
-        <meshStandardMaterial color="#E8A0A0" transparent opacity={0.3} roughness={0.5} />
-      </mesh>
-      <mesh position={[0.18, -0.05, 0.28]} castShadow>
-        <sphereGeometry args={[0.03, 16, 16]} />
-        <meshStandardMaterial color="#E8A0A0" transparent opacity={0.3} roughness={0.5} />
+      {/* Boca pequena */}
+      <mesh position={[0, -0.12, 0.44]}> 
+        <boxGeometry args={[0.06, 0.006, 0.02]} />
+        <meshStandardMaterial color="#C17E72" roughness={0.3} />
       </mesh>
     </group>
   );
@@ -234,22 +154,20 @@ export default function Avatar3D({
       />
 
       {/* Canvas 3D */}
-      <div className="relative h-28 w-28 overflow-hidden rounded-full bg-gradient-to-br from-blue-900/80 via-indigo-800/60 to-purple-900/80 shadow-2xl shadow-blue-500/30 ring-2 ring-blue-400/40">
-        <Canvas camera={{ position: [0, 0.1, 1.2], fov: 45 }}>
-          <ambientLight intensity={0.5} />
-          <directionalLight position={[2, 2, 2]} intensity={1} />
-          <directionalLight position={[-1, 1, -1]} intensity={0.3} color="#8888ff" />
-          <pointLight position={[0, 0.5, 1]} intensity={0.5} color="#4488ff" />
+      <div className="relative h-28 w-28 overflow-hidden rounded-full bg-gradient-to-br from-purple-800/80 via-pink-700/40 to-indigo-900/60 shadow-2xl shadow-pink-400/25 ring-2 ring-pink-300/30">
+        <Canvas camera={{ position: [0, 0.05, 1.0], fov: 50 }}>
+          <ambientLight intensity={0.65} color="#fff1e8" />
+          <directionalLight position={[2, 2, 2]} intensity={0.9} color="#ffd7b5" />
+          <directionalLight position={[-1, 1, -1]} intensity={0.35} color="#e6c6ff" />
+          <pointLight position={[0, 0.6, 1]} intensity={0.6} color="#ffb3a7" />
           
-          <Float speed={1.5} rotationIntensity={0.3} floatIntensity={0.2}>
+          <Float speed={1.4} rotationIntensity={0.25} floatIntensity={0.16}>
             <HumanHead 
               isBlinking={isBlinking} 
               isSmiling={isSmiling || isHovered}
               isTalking={isTalking}
             />
           </Float>
-          
-          <Environment preset="city" />
         </Canvas>
 
         {/* Partículas flutuantes */}

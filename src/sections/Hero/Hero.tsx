@@ -1,15 +1,15 @@
-"use client";
+﻿"use client";
 
 // src/sections/Hero/Hero.tsx
 import { motion } from 'framer-motion';
 import { ArrowRight, MapPin } from 'lucide-react';
 import { siteConfig, whatsappLink } from '../../data/site';
-import { RiverLineDivider } from '../../components/Motif/RiverLine';
+import { RiverLine } from '../../components/Motif/RiverLine';
 import Button from '../../components/Button/Button';
 
 export default function Hero() {
   return (
-    <section id="inicio" className="relative flex min-h-screen items-center overflow-hidden bg-forest-ink">
+    <section id="inicio" className="relative flex min-h-[44rem] items-center overflow-hidden bg-forest-ink sm:min-h-screen">
 
       {/* VÍDEO DE FUNDO */}
       <div className="absolute inset-0 z-0 h-full w-full">
@@ -18,18 +18,18 @@ export default function Hero() {
         </video>
 
         {/* OVERLAY ESCURO PARA LEGIBILIDADE DO TEXTO */}
-        <div className="absolute inset-0 z-10 bg-gradient-to-b from-charcoal/55 via-charcoal/20 to-forest-ink/70 lg:bg-gradient-to-r lg:from-forest-ink/85 lg:via-charcoal/35 lg:to-transparent" />
+        <div className="absolute inset-0 z-10 bg-gradient-to-b from-forest-ink/85 via-forest-ink/55 to-forest-ink/90 lg:bg-gradient-to-r lg:from-forest-ink/85 lg:via-charcoal/35 lg:to-transparent" />
 
-        {/* LUZ AMBIENTE — dois brilhos suaves que respiram lentamente sobre o vídeo */}
-        <div className="pointer-events-none absolute inset-0 z-10 overflow-hidden">
+        {/* Luz ambiente — dois brilhos suaves sobre o vídeo. */}
+        <div className="pointer-events-none absolute inset-0 z-10 hidden overflow-hidden lg:block">
           <div className="animate-float-slow absolute -top-24 right-[8%] h-[26rem] w-[26rem] rounded-full bg-gold/20 blur-[110px] mix-blend-screen" />
           <div className="animate-float-slower absolute bottom-[-8rem] left-[12%] h-[22rem] w-[22rem] rounded-full bg-forest-light/25 blur-[100px] mix-blend-screen" />
         </div>
 
-        {/* TEXTURA DE GRÃO SUTIL */}
+        {/* Textura de grão sutil */}
         <div className="bg-grain pointer-events-none absolute inset-0 z-10 opacity-40" />
 
-        {/* ASSINATURA — a linha do rio Zambeze desenhada ao ligar a página */}
+        {/* Assinatura — a linha do rio Zambeze desenhada ao ligar a página */}
         <svg
           viewBox="0 0 1200 800"
           preserveAspectRatio="xMaxYMid slice"
@@ -56,46 +56,50 @@ export default function Hero() {
       </div>
 
       {/* CONTEÚDO SOBREPOSTO */}
-      <div className="container-page relative z-20 py-28 md:py-32">
-        <div className="max-w-2xl">
+      <div className="container-page relative z-20 pt-20 pb-12 sm:py-28 md:py-32">
+        <div className="max-w-xl md:max-w-2xl">
           <motion.div
             initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: 'easeOut' }}
-            className="flex flex-col gap-7"
+            className="flex flex-col gap-5 md:gap-7"
           >
-            <span className="glass-panel flex w-fit items-center gap-2 rounded-full py-2 pl-3 pr-4 text-xs uppercase tracking-widest2 text-gold-light">
+            <span className="glass-panel flex w-fit items-center gap-2 rounded-full py-1.5 pl-3 pr-3.5 text-[10px] uppercase tracking-[0.18em] text-gold-light sm:text-xs md:py-2 md:pr-4 md:tracking-widest2">
               <MapPin size={14} />
               Fingoe · Marávia · Tete
             </span>
 
-            <h1 className="text-4xl leading-[1.08] text-cream sm:text-5xl md:text-[3.4rem]">
+            <h1 className="text-[2rem] leading-[1.04] text-cream sm:text-5xl md:text-[3.4rem]">
               Uma estadia confortável no coração de <span className="text-gold italic">Fingoe</span>
             </h1>
 
-            <p className="max-w-md text-base leading-relaxed text-cream/80 md:text-lg">
+            <p className="max-w-md text-[15px] leading-6 text-cream/80 md:text-lg md:leading-relaxed">
               Quartos cuidados, atendimento próximo e um ambiente tranquilo para descansar, trabalhar ou receber a sua família — no ponto certo de Marávia, Tete.
             </p>
 
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+            <div className="flex flex-col items-stretch gap-2.5 sm:flex-row sm:items-center sm:gap-3">
               <Button
                 href={whatsappLink('Olá! Gostaria de reservar um quarto no Hotel Tianjane Fingoe.')}
                 target="_blank"
                 rel="noopener noreferrer"
+                className="w-full justify-center sm:w-auto"
                 icon={<ArrowRight size={17} />}
               >
                 Reserve o seu quarto
               </Button>
-              <Button href="#quartos" variant="outline">
+              <a
+                href="#quartos"
+                className="inline-flex min-h-10 items-center justify-center px-4 text-sm font-semibold text-cream/90 transition-colors hover:text-gold sm:min-h-0 sm:px-0"
+              >
                 Ver quartos e tarifas
-              </Button>
+              </a>
             </div>
 
-            <dl className="mt-6 grid grid-cols-3 gap-3 border-t border-cream/10 pt-7 sm:gap-4">
+            <dl className="mt-2 grid grid-cols-3 gap-2 border-t border-cream/10 pt-4 sm:gap-4 sm:pt-7">
               {siteConfig.stats.map((stat) => (
-                <div key={stat.label} className="glass-panel flex flex-col gap-1 rounded-xl px-4 py-3">
-                  <dt className="font-display text-2xl text-gold">{stat.value}</dt>
-                  <dd className="text-xs leading-snug text-cream/65">{stat.label}</dd>
+                <div key={stat.label} className="glass-panel flex flex-col gap-0.5 rounded-lg px-3 py-2.5 sm:gap-1 sm:rounded-xl sm:px-4 sm:py-3">
+                  <dt className="font-display text-xl text-gold sm:text-2xl">{stat.value}</dt>
+                  <dd className="text-[10px] leading-snug text-cream/65 sm:text-xs">{stat.label}</dd>
                 </div>
               ))}
             </dl>
@@ -118,7 +122,8 @@ export default function Hero() {
         />
       </motion.div>
 
-      <RiverLineDivider className="absolute bottom-0 left-0 z-20 h-16 w-full opacity-40" color="#C9A66B" />
+      <RiverLine className="absolute bottom-0 left-0 z-20 h-16 w-full opacity-40" color="#C9A66B" />
     </section>
   );
 }
+

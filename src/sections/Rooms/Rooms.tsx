@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import SectionHeading from '../../components/SectionHeading/SectionHeading';
 import RoomCard from '../../components/RoomCard/RoomCard';
@@ -9,7 +9,7 @@ export default function Rooms() {
 
   if (isLoading) {
     return (
-      <section id="quartos" className="bg-white py-24 md:py-32">
+      <section id="quartos" className="bg-white pt-12 pb-12 md:pt-12 md:pb-12">
         <div className="container-page flex flex-col gap-14">
           <SectionHeading
             eyebrow="Quartos e acomodações"
@@ -23,7 +23,7 @@ export default function Rooms() {
 
   if (error) {
     return (
-      <section id="quartos" className="bg-white py-24 md:py-32">
+      <section id="quartos" className="bg-white pt-12 pb-12 md:pt-12 md:pb-12">
         <div className="container-page flex flex-col gap-14">
           <SectionHeading
             eyebrow="Quartos e acomodações"
@@ -36,7 +36,7 @@ export default function Rooms() {
   }
 
   return (
-    <section id="quartos" className="bg-white py-24 md:py-32">
+    <section id="quartos" className="bg-white pt-12 pb-12 md:pt-12 md:pb-12">
       <div className="container-page flex flex-col gap-14">
         <SectionHeading
           eyebrow="Quartos e acomodações"
@@ -44,7 +44,7 @@ export default function Rooms() {
           description="Três categorias pensadas para necessidades diferentes — da estadia rápida de uma noite à experiência mais exclusiva da casa."
         />
 
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-3 lg:gap-8">
           {rooms?.map((room, index) => (
             <RoomCard key={room.id} room={room} index={index} />
           ))}
